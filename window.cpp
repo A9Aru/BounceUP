@@ -4,7 +4,7 @@
 
 using namespace std;
 
-window::window(const string &st, int h, int w)
+Window::Window(const string &st, int h, int w)
 {
     this->name = st;
     this->height = h;
@@ -12,13 +12,13 @@ window::window(const string &st, int h, int w)
     this->closed = !init();
 }
 
-void window::close()
+void Window::close()
 {
     closed = true;
-    cout << "Closing window" << endl;
+    cout << "Closing Window" << endl;
 }
 
-bool window::init()
+bool Window::init()
 {
     if(SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -45,7 +45,7 @@ bool window::init()
     return true;
 }
 
-void window::pollEvents(SDL_Event &event)
+void Window::pollEvents(SDL_Event &event)
 {
     
     if (event.type == SDL_QUIT)
@@ -54,19 +54,23 @@ void window::pollEvents(SDL_Event &event)
     }
 }
 
-void window::render()
+void Window::render()
 {
     SDL_RenderPresent(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 205, 210, 255);
     SDL_RenderClear(renderer);
 }
 
-SDL_Renderer* window::get_renderer()
+SDL_Renderer* Window::get_renderer()
 {
     return renderer;
 }
 
-bool window :: isClosed()
+bool Window :: isClosed()
 {
     return closed;
+}
+
+void Ballrendere(Ball b){
+    
 }

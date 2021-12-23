@@ -4,10 +4,11 @@
 #include<string>
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
+#include "Ball.hpp"
 
 using namespace std;
 
-class window
+class Window
 {
     int width;
     int height;
@@ -17,12 +18,13 @@ class window
     SDL_Window* win = nullptr;
     SDL_Renderer* renderer = nullptr;
 public:
-    window(const string &title, int height, int width);
+    Window(const string &title, int height, int width);
     bool isClosed();
     void pollEvents(SDL_Event &event);
     void render();
     void close();
     SDL_Renderer* get_renderer();
+    void Ballrenderer(Ball b);
 };
 
 

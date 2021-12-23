@@ -10,7 +10,7 @@ static const int height = 640;
 static const int width = 400;
 using namespace std;
 
-/*void poll_all_events(window app, ball bounce)
+/*void poll_all_events(Window app, Ball bounce)
 {
     SDL_Event event;
     if (SDL_PollEvent (&event))
@@ -22,8 +22,8 @@ using namespace std;
 
 int main()
 {
-    window application("Bouncing Ball", width, height);
-    ball ball(100, 100, 20);
+    Window application("Bouncing Ball", width, height);
+    Ball Ball(100, 100, 20);
 
     while (!application.isClosed())
     {
@@ -33,10 +33,12 @@ int main()
             if (ev.type == SDL_QUIT)
                 application.pollEvents(ev);
             else if (ev.type == SDL_KEYDOWN)
-                ball.poll_events(ev);
+                Ball.poll_events(ev);
         }
         application.render();
-        ball.render(application.get_renderer(), ball.get_x(), ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
+//        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
+        SDL_Surface *Ballimage=IMG_Load("Ball.jpg");
+        Ball.loadimage(Ballimage);
         SDL_Delay(1000 / 60);
     }
 

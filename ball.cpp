@@ -5,7 +5,7 @@
 
 using namespace std;
 
-ball::ball(int x, int y, int r)
+Ball::Ball(int x, int y, int r)
 {
     x_pos = x;
     y_pos = y;
@@ -15,17 +15,17 @@ ball::ball(int x, int y, int r)
     y_velocity = 0;
 }
 
-int ball::get_x()
+int Ball::get_x()
 {
     return x_pos;
 }
 
-int ball::get_y()
+int Ball::get_y()
 {
     return y_pos;
 }
 
-void ball::render(SDL_Renderer* renderer, int cx, int cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void Ball::render(SDL_Renderer* renderer, int cx, int cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
     static const int BPP = 4;
 
@@ -40,7 +40,12 @@ void ball::render(SDL_Renderer* renderer, int cx, int cy, int radius, Uint8 r, U
     }
 }
 
-void ball :: update()
+void Ball::loadimage(SDL_Surface *image){
+    Ballimage=image;
+}
+
+
+void Ball :: update()
 {
   cout<<x_pos<<" "<<y_pos<<endl;
   cout<<"X vel:"<<x_velocity<<" Y vel:"<<y_velocity<<endl;
@@ -59,7 +64,7 @@ void ball :: update()
     }
 }
 
-void ball::poll_events(SDL_Event &event)
+void Ball::poll_events(SDL_Event &event)
 {
       switch (event.key.keysym.scancode)
       {
@@ -174,4 +179,8 @@ void ball::poll_events(SDL_Event &event)
               update();
               break;
       }
+}
+
+SDL_Surface* Ball::getsurface(){
+    return Ballimage;
 }
