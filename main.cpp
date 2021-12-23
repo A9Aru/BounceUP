@@ -24,6 +24,8 @@ int main()
 {
     Window application("Bouncing Ball", width, height);
     Ball Ball(100, 100, 20);
+    SDL_Surface *Ballimage= IMG_Load("/Users/chinthanchandra/Documents/GitHub/Bounce/BounceUP/ball.jpg");
+    Ball.loadimage(Ballimage);
 
     while (!application.isClosed())
     {
@@ -36,9 +38,7 @@ int main()
                 Ball.poll_events(ev);
         }
         application.render();
-//        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
-        SDL_Surface *Ballimage=IMG_Load("Ball.jpg");
-        Ball.loadimage(Ballimage);
+        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
         
         SDL_Delay(1000 / 60);
     }

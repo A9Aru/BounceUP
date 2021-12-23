@@ -43,7 +43,7 @@ void Ball::render(SDL_Renderer* renderer, int cx, int cy, int radius, Uint8 r, U
 void Ball::loadimage(SDL_Surface *image){
     Ballimage=image;
     if(Ballimage==nullptr){
-        cout<<"Failed to load image:"<<IMG_
+        cout<<"Failed to load image:"<<IMG_GetError()<<endl;
     }
 }
 
