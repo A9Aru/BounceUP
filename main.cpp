@@ -39,6 +39,7 @@ int main()
 //        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
         SDL_Surface *Ballimage=IMG_Load("Ball.jpg");
         Ball.loadimage(Ballimage);
+        
         SDL_Delay(1000 / 60);
     }
 
