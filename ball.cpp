@@ -63,57 +63,115 @@ void ball::poll_events(SDL_Event &event)
 {
       switch (event.key.keysym.scancode)
       {
-      case SDL_SCANCODE_W:
-          cout<<"W is pressed"<<endl;
-          if (y_velocity > -18)
-          {
-              y_velocity -= 2;
-              x_velocity = 0;
-          }
-          update();
-          break;
-      case SDL_SCANCODE_S:
-          cout<<"S is pressed"<<endl;
-          if (y_velocity < 18)
-          {
-              x_velocity = 0;
-              y_velocity += 2;
-          }
-          update();
-          break;
-      case SDL_SCANCODE_D:
-          cout<<"D is pressed"<<endl;
-          if ((x_pos <= 640 - 20)&&(x_velocity < 18))
-          {
-              x_velocity += 2;
-              y_velocity = 0;
-          }
-          else if(x_pos>620){
-            x_velocity=0;
-            y_velocity=0;
-          }
-          else{
-            x_velocity=18;
-            y_velocity=0;
-          }
-          update();
-          break;
-      case SDL_SCANCODE_A:
-          cout<<"A is pressed"<<endl;
-          if ((x_pos >= 20)&&(x_velocity > -18) )
-          {
-              y_velocity = 0;
-              x_velocity -= 2;
-          }
-          else if (x_pos < 20){
-            x_velocity=0;
-            y_velocity=0;
-          }
-          else{
-            x_velocity=-18;
-            y_velocity=0;
-          }
-          update();
-          break;
+//          When W is pressed i.e UP arrow
+            case SDL_SCANCODE_W:
+                cout<<"W is pressed"<<endl;
+                if (y_velocity > -18)
+                {
+                  y_velocity -= 2;
+                  x_velocity = 0;
+                }
+                update();
+                break;
+//          When UP arrow is pressed
+            case SDL_SCANCODE_UP:
+                if (y_velocity > -18)
+                {
+                y_velocity -= 2;
+                x_velocity = 0;
+                }
+                update();
+                break;
+//          When S is pressed i.e DOWN arrow
+            case SDL_SCANCODE_S:
+              cout<<"S is pressed"<<endl;
+              if (y_velocity < 18)
+              {
+                  x_velocity = 0;
+                  y_velocity += 2;
+              }
+              update();
+              break;
+//          When DOWN arrow is pressed
+            case SDL_SCANCODE_DOWN:
+              if (y_velocity < 18)
+              {
+                  x_velocity = 0;
+                  y_velocity += 2;
+              }
+              update();
+              break;
+//          When D is pressed i.e RIGHT arrow
+            case SDL_SCANCODE_D:
+                cout<<"D is pressed"<<endl;
+                if ((x_pos <= 640 - 20)&&(x_velocity < 18))
+                {
+                  x_velocity += 2;
+                  y_velocity = 0;
+                }
+                else if(x_pos>620){
+                x_velocity=0;
+                y_velocity=0;
+                }
+                else{
+                x_velocity=18;
+                y_velocity=0;
+                }
+                update();
+                break;
+//          When RIGHT arrow
+            case SDL_SCANCODE_RIGHT:
+              cout<<"D is pressed"<<endl;
+              if ((x_pos <= 640 - 20)&&(x_velocity < 18))
+              {
+                x_velocity += 2;
+                y_velocity = 0;
+              }
+              else if(x_pos>620){
+              x_velocity=0;
+              y_velocity=0;
+              }
+              else{
+              x_velocity=18;
+              y_velocity=0;
+              }
+              update();
+              break;
+//              When A is pressed i.e LEFT arrow
+            case SDL_SCANCODE_A:
+                cout<<"A is pressed"<<endl;
+                if ((x_pos >= 20)&&(x_velocity > -18) )
+                {
+                  y_velocity = 0;
+                  x_velocity -= 2;
+                }
+                else if (x_pos < 20){
+                x_velocity=0;
+                y_velocity=0;
+                }
+                else{
+                x_velocity=-18;
+                y_velocity=0;
+                }
+                update();
+                break;
+//          When LEFT arrow is pressed
+            case SDL_SCANCODE_LEFT:
+              cout<<"A is pressed"<<endl;
+              if ((x_pos >= 20)&&(x_velocity > -18) )
+              {
+                y_velocity = 0;
+                x_velocity -= 2;
+              }
+              else if (x_pos < 20){
+              x_velocity=0;
+              y_velocity=0;
+              }
+              else{
+              x_velocity=-18;
+              y_velocity=0;
+              }
+              update();
+              break;
       }
 }
