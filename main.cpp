@@ -9,7 +9,7 @@
 static const int height = 640;
 static const int width = 400;
 using namespace std;
-// ***---***
+
 /*void poll_all_events(Window app, Ball bounce)
 {
     SDL_Event event;
