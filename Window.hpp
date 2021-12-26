@@ -19,14 +19,19 @@ private:
     SDL_Window* win = nullptr;
     SDL_Renderer* renderer = nullptr;
     SDL_Texture *text=nullptr;
+    SDL_Rect Ballsprite;
+    int texturewidth,textureheight;
+    int frameheight,framewidth;
 public:
     Window(const string &title, int height, int width);
     bool isClosed();
-    void pollEvents(SDL_Event &event);
+    void closewindow();
+    void pollEvents(SDL_Event &event,Ball b);
     void render();
     void close();
     SDL_Renderer* get_renderer();
     void Ballrenderer(Ball b);
+    ~Window();
 };
 
 

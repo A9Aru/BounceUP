@@ -22,27 +22,28 @@ using namespace std;
 
 int main()
 {
-    Window application("Bouncing Ball", width, height);
-    Ball Ball(100, 100, 20);
-    SDL_Surface *Ballimage= IMG_Load("/Users/chinthanchandra/Documents/GitHub/Bounce/BounceUP/images/1.png");
-    Ball.loadimage(Ballimage);
+    Window application("BounceUP", width, height);
+    Ball Ball(640, 50);
+    
+    Ball.loadimage();
     application.render();
     application.Ballrenderer(Ball);
     
     while (!application.isClosed())
     {
         SDL_Event ev;
-        if (SDL_PollEvent(&ev))
+        while(SDL_PollEvent(&ev)!=0)
         {
-            if (ev.type == SDL_QUIT)
-                application.pollEvents(ev);
-            else if (ev.type == SDL_KEYDOWN){
-                Ball.poll_events(ev);
+            if(ev.type==SDL_QUIT){
+                application.closewindow();
+            }
+            else if (ev.type==SDL_KEYDOWN){
+                application.pollEvents(ev, Ball);
             }
         }
-//        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
-
+        SDL_Delay(1000/120);
     }
-
+    
+    SDL_Quit();
     return 0;
 }
