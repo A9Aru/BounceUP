@@ -10,6 +10,7 @@ using namespace std;
 
 class Window
 {
+private:
     int width;
     int height;
     bool closed = false;
@@ -17,6 +18,7 @@ class Window
     bool init();
     SDL_Window* win = nullptr;
     SDL_Renderer* renderer = nullptr;
+    SDL_Texture *text=nullptr;
 public:
     Window(const string &title, int height, int width);
     bool isClosed();

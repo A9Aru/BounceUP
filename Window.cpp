@@ -57,7 +57,7 @@ void Window::pollEvents(SDL_Event &event)
 void Window::render()
 {
     SDL_RenderPresent(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 205, 210, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 }
 
@@ -71,6 +71,8 @@ bool Window :: isClosed()
     return closed;
 }
 
-void Ballrendere(Ball b){
-    
+void Window::Ballrenderer(Ball b){
+    text=SDL_CreateTextureFromSurface(renderer, b.getsurface());
+    SDL_RenderCopy(renderer, text, NULL, b.getrect());
+    SDL_RenderPresent(renderer);
 }

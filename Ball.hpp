@@ -14,6 +14,7 @@ private:
     int x_velocity;
     int y_velocity;
     SDL_Surface *Ballimage=nullptr;
+    SDL_Rect text_rec={640,360,50,50};
     
 public:
     Ball(int x, int y, int r);
@@ -24,6 +25,7 @@ public:
     void poll_events(SDL_Event &event);
     void render(SDL_Renderer* renderer, int cx, int cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void loadimage(SDL_Surface *image);
+    SDL_Rect* getrect();
 };
 
 #endif /* Ball_hpp */

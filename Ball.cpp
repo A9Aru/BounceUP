@@ -187,3 +187,7 @@ void Ball::poll_events(SDL_Event &event)
 SDL_Surface* Ball::getsurface(){
     return Ballimage;
 }
+
+SDL_Rect* Ball::getrect(){
+    return &text_rec;
+}

@@ -6,8 +6,8 @@
 #include "Window.hpp"
 #undef main
 
-static const int height = 640;
-static const int width = 400;
+static const int height = 1280;
+static const int width = 720;
 using namespace std;
 
 /*void poll_all_events(Window app, Ball bounce)
@@ -24,9 +24,11 @@ int main()
 {
     Window application("Bouncing Ball", width, height);
     Ball Ball(100, 100, 20);
-    SDL_Surface *Ballimage= IMG_Load("/Users/chinthanchandra/Documents/GitHub/Bounce/BounceUP/ball.jpg");
+    SDL_Surface *Ballimage= IMG_Load("/Users/chinthanchandra/Documents/GitHub/Bounce/BounceUP/images/1.png");
     Ball.loadimage(Ballimage);
-
+    application.render();
+    application.Ballrenderer(Ball);
+    
     while (!application.isClosed())
     {
         SDL_Event ev;
@@ -34,13 +36,12 @@ int main()
         {
             if (ev.type == SDL_QUIT)
                 application.pollEvents(ev);
-            else if (ev.type == SDL_KEYDOWN)
+            else if (ev.type == SDL_KEYDOWN){
                 Ball.poll_events(ev);
+            }
         }
-        application.render();
-        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
-        
-        SDL_Delay(1000 / 60);
+//        Ball.render(application.get_renderer(), Ball.get_x(), Ball.get_y(), 20, 0x00, 0xFF, 0xFF, 0xFF);
+
     }
 
     return 0;
