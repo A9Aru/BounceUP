@@ -39,7 +39,7 @@ int main()
                 application.closewindow();
             }
             else if (ev.type==SDL_KEYDOWN){
-               // application.pollEvents(ev, Ball);
+               application.pollEvents(ev, Ball);
             }          
         }  
         SDL_Delay(1000/120); 
