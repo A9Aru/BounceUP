@@ -24,8 +24,8 @@ int main()
 {
     Ball Ball(640, 50);
     Window application("BounceUP", width, height);
-    Rock Rock(400,400);
-    Rock.rockRenderer(application.get_renderer());
+  //  Rock Rock(400,400);
+   // Rock.rockRenderer(application.get_renderer());
     Ball.loadimage();
     application.render();
     application.Ballrenderer(Ball);
@@ -38,7 +38,7 @@ int main()
                 application.closewindow();
             }
             else if (ev.type==SDL_KEYDOWN){
-               application.pollEvents(ev, Ball);
+               application.pollEvents(ev,Ball);
             }          
         }  
         SDL_Delay(1000/120); 

@@ -50,28 +50,34 @@ void Window::closewindow(){
         cout << "Closing Window" << endl;
 }
 
-void Window::pollEvents(SDL_Event &event,Ball b)
+void Window::pollEvents(SDL_Event &event,Ball &b)
 {
     switch (event.key.keysym.sym)
     {
         //          When W is pressed i.e UP arrow
         case SDLK_w:
             cout<<"W is pressed"<<endl;
-//            b.set_y(b.get_y()+10);
+            b.set_y(b.get_y()+10);
             break;
         //          When UP arrow is pressed
         case SDLK_UP:
-//            b.set_y(b.get_y()+10);
+            cout << "Up is pressed"<<endl;
+            b.set_y(b.get_y()-10);
+            cout<< b.get_y()<<endl;
             break;
         //          When S is pressed i.e DOWN arrow
         case SDLK_s:
             cout<<"S is pressed"<<endl;
+            cout<< b.get_y()<<endl;
 //            if(b.get_y()>0){
             break;
         //          When DOWN arrow is pressed
         case SDLK_DOWN:
+            b.set_y(b.get_y()+10);
+            cout<< b.get_y()<<endl;
+            cout<< b.get_y()<<endl;
             cout<<"S is pressed"<<endl;
-            
+
             break;
         //          When D is pressed i.e RIGHT arrow
         case SDLK_d:

@@ -26,7 +26,7 @@ public:
     Window(const string &title, int height, int width);
     bool isClosed();
     void closewindow();
-    void pollEvents(SDL_Event &event,Ball b);
+    void pollEvents(SDL_Event &event,Ball &b);
     void render();
     void close();
     SDL_Renderer* get_renderer();
