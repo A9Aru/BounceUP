@@ -1,7 +1,7 @@
 #include<SDL2/SDL.h>
 #include<iostream>
 #include<SDL2/SDL_image.h>
-
+#include "Rock.hpp"
 #include "Ball.hpp"
 #include "Window.hpp"
 #undef main
@@ -23,12 +23,12 @@ using namespace std;
 int main()
 {
     Window application("BounceUP", width, height);
+    Rock Rock(400,400);
+    Rock.rockRenderer(application.get_renderer());
     Ball Ball(640, 50);
-    
     Ball.loadimage();
     application.render();
     application.Ballrenderer(Ball);
-    
     while (!application.isClosed())
     {
         SDL_Event ev;
