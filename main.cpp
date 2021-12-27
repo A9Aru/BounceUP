@@ -22,14 +22,17 @@ using namespace std;
 
 int main()
 {
+     SDL_Window* win = SDL_CreateWindow("GAME",
+                                       SDL_WINDOWPOS_CENTERED,
+                                       SDL_WINDOWPOS_CENTERED,
+                                       1000, 1000, 0);
+  //  Ball Ball(640, 50);
     Window application("BounceUP", width, height);
-    Ball Ball(640, 50);
-    
-    Ball.loadimage();
+  //  Ball.loadimage();
     application.render();
-    application.Ballrenderer(Ball);
-    
-    while (!application.isClosed())
+    // application.Ballrenderer(Ball); 
+ 
+   while (!application.isClosed())
     {
         SDL_Event ev;
         while(SDL_PollEvent(&ev)!=0)
@@ -38,12 +41,12 @@ int main()
                 application.closewindow();
             }
             else if (ev.type==SDL_KEYDOWN){
-                application.pollEvents(ev, Ball);
-            }
-        }
-        SDL_Delay(1000/120);
-    }
+               // application.pollEvents(ev, Ball);
+            }          
+        }  
+        SDL_Delay(1000/120); 
+    }  
     
-    SDL_Quit();
+   SDL_Quit(); 
     return 0;
 }
