@@ -22,10 +22,6 @@ using namespace std;
 
 int main()
 {
-     SDL_Window* win = SDL_CreateWindow("GAME",
-                                       SDL_WINDOWPOS_CENTERED,
-                                       SDL_WINDOWPOS_CENTERED,
-                                       1000, 1000, 0);
     Ball Ball(640, 50);
     Window application("BounceUP", width, height);
     Rock Rock(400,400);
