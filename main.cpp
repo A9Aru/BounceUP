@@ -22,15 +22,7 @@ using namespace std;
 
 int main()
 {
-<<<<<<< Updated upstream
-    Ball Ball(640, 50);
-    Window application("BounceUP", width, height);
-  //  Rock Rock(400,400);
-   // Rock.rockRenderer(application.get_renderer());
-    Ball.loadimage();
-    application.render();
-    application.Ballrenderer(Ball);
-=======
+
     Window application("BounceUP", width, height);
     application.render();
     Rock Rock(400,400);
@@ -38,7 +30,7 @@ int main()
     Rock.loadimage(application.get_renderer());
     Ball.loadimage(application.get_renderer());
     application.render(Ball,Rock);
->>>>>>> Stashed changes
+
     while (!application.isClosed())
     {
         SDL_Event ev;
@@ -48,19 +40,11 @@ int main()
                 application.closewindow();
             }
             else if (ev.type==SDL_KEYDOWN){
-<<<<<<< Updated upstream
-               application.pollEvents(ev,Ball);
-            }          
-        }  
-        SDL_Delay(1000/120); 
-    }  
-=======
                 application.pollEvents(ev, Ball,Rock);
             }
         }
         SDL_Delay(1000/120);
     }
->>>>>>> Stashed changes
     
    SDL_Quit(); 
     return 0;

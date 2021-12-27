@@ -50,11 +50,7 @@ void Window::closewindow(){
         cout << "Closing Window" << endl;
 }
 
-<<<<<<< Updated upstream
-void Window::pollEvents(SDL_Event &event,Ball &b)
-=======
 void Window::pollEvents(SDL_Event &event,Ball b,Rock r)
->>>>>>> Stashed changes
 {
     switch (event.key.keysym.sym)
     {
