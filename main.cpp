@@ -1,7 +1,7 @@
 #include<SDL2/SDL.h>
 #include<iostream>
 #include<SDL2/SDL_image.h>
-
+#include "Rock.hpp"
 #include "Ball.hpp"
 #include "Window.hpp"
 #undef main
@@ -26,13 +26,15 @@ int main()
                                        SDL_WINDOWPOS_CENTERED,
                                        SDL_WINDOWPOS_CENTERED,
                                        1000, 1000, 0);
-  //  Ball Ball(640, 50);
+    Ball Ball(640, 50);
     Window application("BounceUP", width, height);
-  //  Ball.loadimage();
+    Rock Rock(400,400);
+    Rock.rockRenderer(application.get_renderer());
+    Ball Ball(640, 50);
+    Ball.loadimage();
     application.render();
-    // application.Ballrenderer(Ball); 
- 
-   while (!application.isClosed())
+    application.Ballrenderer(Ball);
+    while (!application.isClosed())
     {
         SDL_Event ev;
         while(SDL_PollEvent(&ev)!=0)
