@@ -26,7 +26,6 @@ int main()
     Window application("BounceUP", width, height);
     Rock Rock(400,400);
     Rock.rockRenderer(application.get_renderer());
-    Ball Ball(640, 50);
     Ball.loadimage();
     application.render();
     application.Ballrenderer(Ball);
