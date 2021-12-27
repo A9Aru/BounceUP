@@ -50,7 +50,11 @@ void Window::closewindow(){
         cout << "Closing Window" << endl;
 }
 
+<<<<<<< Updated upstream
 void Window::pollEvents(SDL_Event &event,Ball &b)
+=======
+void Window::pollEvents(SDL_Event &event,Ball b,Rock r)
+>>>>>>> Stashed changes
 {
     switch (event.key.keysym.sym)
     {
@@ -126,17 +130,19 @@ void Window::pollEvents(SDL_Event &event,Ball &b)
             cout<<b.getdeg()<<endl;
             break;
     }
+    SDL_SetRenderDrawColor(renderer, 255, 255,255, 255);
     SDL_RenderClear(renderer);
-    SDL_RenderCopyEx(renderer, text, NULL, b.getrect(), b.getdeg(), NULL, b.getflip());
+    SDL_RenderCopy(renderer, r.gettext(), NULL, r.getrect());
+    SDL_RenderCopyEx(renderer, b.gettext(), NULL, b.getrect(), b.getdeg(), NULL, b.getflip());
 //    SDL_RenderCopy(renderer, text,&Ballsprite, b.getrect());
     SDL_RenderPresent(renderer);
 }
 
 void Window::render()
 {
-    SDL_RenderPresent(renderer);
-    SDL_SetRenderDrawColor(renderer,0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 SDL_Renderer* Window::get_renderer()
@@ -149,8 +155,7 @@ bool Window :: isClosed()
     return closed;
 }
 
-void Window::Ballrenderer(Ball b){
-    text=SDL_CreateTextureFromSurface(renderer, b.getsurface());
+void Window::render(Ball b,Rock r){
 //    SDL_QueryTexture(text, NULL, NULL, &texturewidth, &textureheight);
 //    cout<<texturewidth<<" width "<<textureheight<<" height\n";
 //
@@ -162,9 +167,11 @@ void Window::Ballrenderer(Ball b){
 //    Ballsprite.w=framewidth;
 //    Ballsprite.h=frameheight;
 //
-//    SDL_RenderClear(renderer);
 //    SDL_RenderCopy(renderer, text,&Ballsprite, b.getrect());
-    SDL_RenderCopy(renderer, text, NULL, b.getrect());
+    SDL_SetRenderDrawColor(renderer, 255, 255,255, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, r.gettext(), NULL, r.getrect());
+    SDL_RenderCopy(renderer, b.gettext(), NULL, b.getrect());
     SDL_RenderPresent(renderer);
 }
 

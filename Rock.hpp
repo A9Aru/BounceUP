@@ -1,5 +1,5 @@
-// #ifndef Wall_hpp
-// #define Wall_hpp
+#ifndef Rock_hpp
+#define Rock_hpp
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include<iostream>
@@ -9,10 +9,16 @@ class Rock
 {
     private:
         int length, breadth, x_pos, y_pos;
+        SDL_Rect rrect;
+        SDL_Texture *rocktext =nullptr;
+        SDL_Surface *rocksurface=nullptr;
     public:
         Rock(int x, int y);
         int get_x();
         int get_y();
-        void rockRenderer(SDL_Renderer* renderer);
+        SDL_Texture* gettext();
+        SDL_Surface* getsurface();
+        SDL_Rect* getrect();
+        void loadimage(SDL_Renderer* renderer);
 };
-// #endif
+#endif

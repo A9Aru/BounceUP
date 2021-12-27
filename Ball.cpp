@@ -9,7 +9,7 @@ Ball::Ball(int y, int r)
 {
     y_pos = y;
     radius = r;
-    *degrees=0;
+    degrees=new double;
     y_velocity = 0;
     text_rec={y,360,radius,radius};
 }
@@ -21,6 +21,10 @@ int Ball::get_y()
 
 SDL_Surface* Ball::getsurface(){
     return Ballimage;
+}
+
+SDL_Texture* Ball::gettext(){
+    return balltext;
 }
 
 SDL_Rect* Ball::getrect(){
@@ -50,10 +54,13 @@ void Ball::setdeg(double deg){
     else if(*degrees<=-360) *degrees+=360;
 }
 
-void Ball::loadimage(){
-    Ballimage=IMG_Load("images/1.png");
+void Ball::loadimage(SDL_Renderer* renderer){
+    Ballimage=IMG_Load("images/2.png");
     if(Ballimage==nullptr){
         cout<<"Failed to load image:"<<IMG_GetError()<<endl;
+    }
+    else{
+        balltext=SDL_CreateTextureFromSurface(renderer, Ballimage);
     }
 }
 

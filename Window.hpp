@@ -5,7 +5,7 @@
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include "Ball.hpp"
-
+#include "Rock.hpp"
 using namespace std;
 
 class Window
@@ -26,11 +26,15 @@ public:
     Window(const string &title, int height, int width);
     bool isClosed();
     void closewindow();
+<<<<<<< Updated upstream
     void pollEvents(SDL_Event &event,Ball &b);
+=======
+    void pollEvents(SDL_Event &event,Ball b,Rock r);
+>>>>>>> Stashed changes
     void render();
     void close();
     SDL_Renderer* get_renderer();
-    void Ballrenderer(Ball b);
+    void render(Ball b,Rock r);
     ~Window();
 };
 
