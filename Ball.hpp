@@ -13,7 +13,7 @@ private:
     int y_velocity;
     SDL_Surface *Ballimage=nullptr;
     SDL_Rect text_rec;
-    double *degrees = nullptr;
+    double *degrees = new double;
     SDL_RendererFlip fliptype=SDL_FLIP_NONE;
     
 public:
