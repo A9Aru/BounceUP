@@ -2,200 +2,121 @@
 #include<iostream>
 #include<SDL2/SDL_image.h>
 #include "Ball.hpp"
+#include "Texture.hpp"
 
 using namespace std;
 
-Ball::Ball(int y, int r)
+Ball::Ball(const char* file,int x,int y, int r,SDL_Renderer* renderer)
 {
+    x_pos=x;
     y_pos = y;
     radius = r;
     degrees=new double;
+    (*degrees)=0;
     y_velocity = 0;
-    text_rec={y,360,radius,radius};
+    srec={0,0,NULL,NULL};
+    drec={x,y,radius,radius};
+    balltext=Texture::LoadTexture(file, renderer);
+    rotate=false;
 }
 
-int Ball::get_y()
-{
-    return y_pos;
+void Ball::Update(){
+    keyboardinput();
+    drec.x=x_pos;
+    drec.y=y_pos;
+    drec.h=radius;
+    drec.w=radius;
+
 }
 
-SDL_Surface* Ball::getsurface(){
-    return Ballimage;
-}
-
-SDL_Texture* Ball::gettext(){
-    return balltext;
-}
-
-SDL_Rect* Ball::getrect(){
-    return &text_rec;
-}
-
-SDL_RendererFlip Ball::getflip(){
-    return fliptype;
-}
-
-double Ball::getdeg(){
-    return *degrees;
-}
-
-void Ball::set_y(int y){
-    y_pos=y;
-    text_rec.y=y_pos;
-}
-
-void Ball::setflip(SDL_RendererFlip flip){
-    fliptype=flip;
+void Ball::Render(SDL_Renderer* renderer){
+    if(rotate==true) SDL_RenderCopyEx(renderer, balltext, NULL, &drec, *degrees, NULL, SDL_FLIP_NONE);
+    else SDL_RenderCopy(renderer, balltext, NULL, &drec);
 }
 
 void Ball::setdeg(double deg){
-    (*degrees)=deg;
+    (*degrees)+=deg;
     if(*degrees>=360) (*degrees)-=360;
     else if(*degrees<=-360) *degrees+=360;
 }
 
-void Ball::loadimage(SDL_Renderer* renderer){
-    Ballimage=IMG_Load("images/2.png");
-    if(Ballimage==nullptr){
-        cout<<"Failed to load image:"<<IMG_GetError()<<endl;
+void Ball::keyboardinput(){
+    const Uint8* currkey=SDL_GetKeyboardState(NULL);
+    
+    if((currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) && (currkey[SDL_SCANCODE_LEFT] || currkey[SDL_SCANCODE_A])){
+        cout<<"W and A is pressed"<<endl;
+        y_pos-=2;
+        this->setdeg(-5);
+        rotate=true;
+        cout<<"Rotate Left by"<<*degrees<<"\n";
     }
-    else{
-        balltext=SDL_CreateTextureFromSurface(renderer, Ballimage);
+    else if((currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) && (currkey[SDL_SCANCODE_RIGHT] || currkey[SDL_SCANCODE_D])){
+        cout<<"W and D is pressed"<<endl;
+        y_pos-=2;
+        this->setdeg(5);
+        rotate=true;
+        cout<<"Rotate Right by "<<*degrees<<"\n";
+    }
+    else if((currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) && (currkey[SDL_SCANCODE_LEFT] || currkey[SDL_SCANCODE_A])){
+        cout<<"W and A is pressed"<<endl;
+        y_pos+=2;
+        this->setdeg(-5);
+        rotate=true;
+        cout<<"Rotate Left by"<<*degrees<<"\n";
+    }
+    else if((currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) && (currkey[SDL_SCANCODE_RIGHT] || currkey[SDL_SCANCODE_D])){
+        cout<<"W and D is pressed"<<endl;
+        y_pos+=2;
+        this->setdeg(5);
+        rotate=true;
+        cout<<"Rotate Right by "<<*degrees<<"\n";
+    }
+//  When W is pressed i.e UP arrow
+    else if(currkey[SDL_SCANCODE_W]){
+        cout<<"W is pressed"<<endl;
+        y_pos-=2;
+    }
+//          When UP arrow is pressed
+    else if(currkey[SDL_SCANCODE_UP]){
+        cout << "Up is pressed"<<endl;
+        y_pos-=2;
+    }
+//          When S is pressed i.e DOWN arrow
+    else if(currkey[SDL_SCANCODE_S]){
+        cout<<"S is pressed"<<endl;
+        y_pos+=2;
+    }
+//          When DOWN arrow is pressed
+    else if(currkey[SDL_SCANCODE_DOWN]){
+        cout << "Down is pressed"<<endl;
+        y_pos+=2;
+    }
+//          When D is pressed i.e RIGHT arrow
+    else if(currkey[SDL_SCANCODE_D]){
+        cout<<"D is pressed\n";
+        this->setdeg(5);
+        rotate=true;
+        cout<<"Rotate Right by "<<*degrees<<"\n";
+    }
+//          When RIGHT arrow
+    else if (currkey[SDL_SCANCODE_RIGHT]){
+        cout<<"-> is pressed\n";
+        this->setdeg(5);
+        rotate=true;
+        cout<<"Rotate Right by "<<*degrees<<"\n";
+    }
+//              When A is pressed i.e LEFT arrow
+    else if (currkey[SDL_SCANCODE_A]){
+        cout<<"A is pressed\n";
+        this->setdeg(-5);
+        rotate=true;
+        cout<<"Rotate Left by "<<*degrees<<"\n";
+    }
+//          When LEFT arrow is pressed
+    else if (currkey[SDL_SCANCODE_LEFT]){
+        cout<<"<- is pressed\n";
+        this->setdeg(-5);
+        rotate=true;
+        cout<<"Rotate Left by "<<*degrees<<"\n";
     }
 }
-
-//void Ball :: update()
-//{
-//  cout<<"X vel:"<<x_velocity<<" Y vel:"<<y_velocity<<endl;
-//  x_pos += x_velocity;
-//  y_pos += y_velocity;
-//
-//  if (y_pos <= 20 || y_pos >= 400 - 20)
-//    {
-//      y_velocity *= -1;
-//      std::cout << "Y: " << this->get_y() << std::endl;
-//    }
-//    if (x_pos <= 20 || x_pos >= 640 - 20)
-//    {
-//      x_velocity=0;
-//      std::cout << "X: " << this->get_x()<<"X vel: "<<x_velocity << std::endl;
-//    }
-//}
-//
-//void Ball::poll_events(SDL_Event &event)
-//{
-//      switch (event.type)
-//      {
-////          When W is pressed i.e UP arrow
-//            case SDL_SCANCODE_W:
-//                cout<<"W is pressed"<<endl;
-//                if (y_velocity > -18)
-//                {
-//                  y_velocity -= 2;
-//                  x_velocity = 0;
-//                }
-//                update();
-//                break;
-////          When UP arrow is pressed
-//            case SDL_SCANCODE_UP:
-//                if (y_velocity > -18)
-//                {
-//                y_velocity -= 2;
-//                x_velocity = 0;
-//                }
-//                update();
-//                break;
-////          When S is pressed i.e DOWN arrow
-//            case SDL_SCANCODE_S:
-//              cout<<"S is pressed"<<endl;
-//              if (y_velocity < 18)
-//              {
-//                  x_velocity = 0;
-//                  y_velocity += 2;
-//              }
-//              update();
-//              break;
-////          When DOWN arrow is pressed
-//            case SDL_SCANCODE_DOWN:
-//              if (y_velocity < 18)
-//              {
-//                  x_velocity = 0;
-//                  y_velocity += 2;
-//              }
-//              update();
-//              break;
-////          When D is pressed i.e RIGHT arrow
-//            case SDL_SCANCODE_D:
-//                cout<<"D is pressed"<<endl;
-//                if ((x_pos <= 640 - 20)&&(x_velocity < 18))
-//                {
-//                  x_velocity += 2;
-//                  y_velocity = 0;
-//                }
-//                else if(x_pos>620){
-//                x_velocity=0;
-//                y_velocity=0;
-//                }
-//                else{
-//                x_velocity=18;
-//                y_velocity=0;
-//                }
-//                update();
-//                break;
-////          When RIGHT arrow
-//            case SDL_SCANCODE_RIGHT:
-//              cout<<"D is pressed"<<endl;
-//              if ((x_pos <= 640 - 20)&&(x_velocity < 18))
-//              {
-//                x_velocity += 2;
-//                y_velocity = 0;
-//              }
-//              else if(x_pos>620){
-//              x_velocity=0;
-//              y_velocity=0;
-//              }
-//              else{
-//              x_velocity=18;
-//              y_velocity=0;
-//              }
-//              update();
-//              break;
-////              When A is pressed i.e LEFT arrow
-//            case SDL_SCANCODE_A:
-//                cout<<"A is pressed"<<endl;
-//                if ((x_pos >= 20)&&(x_velocity > -18) )
-//                {
-//                  y_velocity = 0;
-//                  x_velocity -= 2;
-//                }
-//                else if (x_pos < 20){
-//                x_velocity=0;
-//                y_velocity=0;
-//                }
-//                else{
-//                x_velocity=-18;
-//                y_velocity=0;
-//                }
-//                update();
-//                break;
-////          When LEFT arrow is pressed
-//            case SDL_SCANCODE_LEFT:
-//              cout<<"A is pressed"<<endl;
-//              if ((x_pos >= 20)&&(x_velocity > -18) )
-//              {
-//                y_velocity = 0;
-//                x_velocity -= 2;
-//              }
-//              else if (x_pos < 20){
-//              x_velocity=0;
-//              y_velocity=0;
-//              }
-//              else{
-//              x_velocity=-18;
-//              y_velocity=0;
-//              }
-//              update();
-//              break;
-//      }
-//}
-

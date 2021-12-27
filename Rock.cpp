@@ -1,36 +1,22 @@
-#include<SDL2/SDL.h>
-#include<iostream>
-#include<SDL2/SDL_image.h>
 #include "Rock.hpp"
-Rock::Rock(int x, int y)
+
+Rock::Rock(const char* file,int x,int y,SDL_Renderer* renderer): Object(file, x, y, renderer)
 {
-    x_pos = x;
-    y_pos = y;
-    rrect={x,y,100,100};
+    Object::setdrec(400, 500, 100, 100);
+    Object::setsrec(0,0,NULL,NULL);
 }
-int Rock::get_x()
-{
-    return x_pos;
+
+void Rock::Update(){
+    x_pos++;
+    if(x_pos<0) x_pos=1280;
+    if(x_pos>1280) x_pos=0;
+    setdrec(x_pos, y_pos, 100, 100);
 }
-int Rock::get_y()
-{
-    return y_pos;
+
+void Rock::Render(SDL_Renderer *renderer){
+    SDL_RenderCopy(renderer, Object::text, NULL, &(Object::drec));
 }
-SDL_Texture* Rock::gettext(){
-    return rocktext;
-}
-SDL_Surface* Rock::getsurface(){
-    return rocksurface;
-}
-SDL_Rect* Rock::getrect(){
-    return &rrect;
-}
-void Rock::loadimage(SDL_Renderer* renderer){
-    rocksurface=IMG_Load("rock.png");
-    if(rocksurface==nullptr){
-        cout<<"Failed to load image:"<<IMG_GetError()<<endl;
-    }
-    else{
-        rocktext=SDL_CreateTextureFromSurface(renderer, rocksurface);
-    }
+
+void Rock::keyboardinput(){
+    
 }

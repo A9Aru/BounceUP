@@ -1,51 +1,29 @@
-#include<SDL2/SDL.h>
-#include<iostream>
-#include<SDL2/SDL_image.h>
-#include "Rock.hpp"
-#include "Ball.hpp"
-#include "Window.hpp"
-#undef main
+#include "Game.hpp"
 
-static const int height = 1280;
-static const int width = 720;
 using namespace std;
-
-/*void poll_all_events(Window app, Ball bounce)
-{
-    SDL_Event event;
-    if (SDL_PollEvent (&event))
-    {
-        app.pollEvents(event);
-        bounce.poll_events(event);
-    }
-}*/
-
+const int FPS=60;
+const int FD=1000/FPS;//framedelay
 int main()
 {
-
-    Window application("BounceUP", width, height);
-    application.render();
-    Rock Rock(400,400);
-    Ball Ball(640, 50);
-    Rock.loadimage(application.get_renderer());
-    Ball.loadimage(application.get_renderer());
-    application.render(Ball,Rock);
-
-    while (!application.isClosed())
-    {
-        SDL_Event ev;
-        while(SDL_PollEvent(&ev)!=0)
-        {
-            if(ev.type==SDL_QUIT){
-                application.closewindow();
-            }
-            else if (ev.type==SDL_KEYDOWN){
-                application.pollEvents(ev, Ball,Rock);
-            }
-        }
-        SDL_Delay(1000/120);
-    }
+    Game *bounce=new Game();
+    bounce->init("BounceUP");
     
-   SDL_Quit(); 
+    Uint32 FB; //framebegin
+    int FT; //frametime
+    
+    while(!bounce->isClosed()){
+        FB=SDL_GetTicks();
+        
+        bounce->eventhandler();
+        bounce->update();
+        bounce->render();
+        
+        FT=SDL_GetTicks()-FB;
+        if(FD>FT){
+            SDL_Delay(FD-FT);
+        }
+    }
+    bounce->clean();
+    
     return 0;
 }
