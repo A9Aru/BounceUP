@@ -61,6 +61,7 @@ void Ball::keyboardinput(Rock *r){
         rotate=true;
         if(y_velocity < 25)
             y_velocity += 5;
+        y_pos = y_pos + (y_velocity)/10;
         r->Update(1);
         cout<<"Rotate Left by"<<*degrees<<"\n";
     }
