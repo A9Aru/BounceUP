@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <SDL_image.h>
 #include "Texture.hpp"
 
 class Game{
@@ -21,11 +21,10 @@ public:
     bool isClosed();
     
     static SDL_Event event;
-    
+    static SDL_Renderer* renderer;
 private:
     bool closed;
     SDL_Window* win = nullptr;
-    SDL_Renderer* renderer = nullptr;
     
 };
 #endif /* Game_hpp */
