@@ -1,6 +1,7 @@
 #ifndef Ball_hpp
 #define Ball_hpp
 #include "Game.hpp"
+#include "Rock.hpp"
 using namespace std;
 
 class Ball
@@ -14,11 +15,11 @@ private:
     double *degrees = new double;
     bool rotate;
 public:
-    Ball(const char* file,int x,int y, int r,SDL_Renderer* renderer);
+    Ball(const char* file,int x,int y, int r);
     
-    void Update();
-    void Render(SDL_Renderer* renderer);
-    void keyboardinput();
+    void Update(class Rock * r);
+    void Render();
+    void keyboardinput(Rock *r);
     void setdeg(double deg);
 };
 

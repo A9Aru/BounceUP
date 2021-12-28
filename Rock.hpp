@@ -8,9 +8,9 @@ class Rock: public Object
 private:
     int length,breadth;
 public:
-    Rock(const char* file,int x,int y,SDL_Renderer* renderer);
-    void Update();
-    void Render(SDL_Renderer* renderer);
+    Rock(const char* file,int x,int y);
+    void Update(int i);
+    void Render();
     void keyboardinput();
 };
 #endif
