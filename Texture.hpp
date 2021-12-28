@@ -1,9 +1,9 @@
 #ifndef Texture_hpp
 #define Texture_hpp
-#include "game.hpp"
+#include "Game.hpp"
 
 #include <stdio.h>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 class Texture{
 public:
