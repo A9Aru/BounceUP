@@ -15,18 +15,6 @@ Coin::Coin()
 Coin::~Coin() {
 }
 
-//Generate the coin location
-void Coin::generateObstacle(Window* window) {
-  	//Start coin at edge of screen
-	int x = 0;
-	//Random y location
-	int y = 380 - (rand() % 360);
-	this->launching = true;
-}
-int Coin::ObstacleID(){
-	return 2;
-}
-
 //Deal with collision between coin and player
 void Coin::handleCollision() {
     //increment score and then destroy the coin
