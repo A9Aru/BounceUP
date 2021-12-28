@@ -7,10 +7,6 @@
 //Create the coin object
 Coin::Coin()
 {
-	this->stage = 0;
-	this->launching = false;
-	this->ticks = 0;
-	this->totalStages = 0;
 };
 Coin::~Coin() {
 }
