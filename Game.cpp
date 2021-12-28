@@ -40,13 +40,13 @@ void Game::init(const char* title){
             }
             else
             {
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                SDL_SetRenderDrawColor(renderer, 135, 206, 255, 255); //135,206,255 or 0,191,255
                 cout<<"Window Created\n";
                 closed=false;
             }
         }
         b=new Ball("images/2.png",height/2,width/2,60,renderer);
-        r=new Rock("rock.png",1100,600,renderer);
+        r=new Rock("images/rock.png",1100,600,renderer);
     }
 }
 
