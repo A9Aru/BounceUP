@@ -6,9 +6,4 @@ public:
 	virtual void draw(SDL_Renderer* renderer, Window* window);
 	virtual void handleCollision();
 	virtual ~Coin();
-private:
-	int stage;
-	int ticks;
-	int totalStages;
-	bool launching;
 };
