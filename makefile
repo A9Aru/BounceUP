@@ -10,3 +10,5 @@ BounceUp: $(all_objs) 	makefile			 #creating excutable file
 
 clean:								 #removing the executable file and the object file
 	rm BounceUp *.o
+
+#g++ main.cpp Wall.cpp Ball.cpp Texture.cpp Object.cpp Rock.cpp Game.cpp Coin.cpp `pkg-config --cflags --libs sdl2` -lSDL2_image -ldl
