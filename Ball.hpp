@@ -18,11 +18,10 @@ private:
 public:
     Ball(const char* file,int x,int y, int r);
     
-    void Update(class Rock * r);
-    void Update(class Coin* c);
+    void Update();
     void Render();
-    void keyboardinput(Rock *r);
-    void keyboardinput(Coin* c);
+    void keyboardinput();
+//    void keyboardinput(Coin* c);
     void setdeg(double deg);
 };
 

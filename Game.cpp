@@ -67,19 +67,19 @@ void Game::eventhandler() {
 
 void Game::update() {
     //call this update for every switch case
+    b->Update();
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
         cout << "Rendering rock in level" << endl;
-        b->Update(m->rocks);
+        m->rocks->Update();
     }
     for (int i = 0; i < m->level_coins.size(); i++)
     {
         m->coins = m->level_coins[i];
-        cout << "Rendering rock in level" << endl;
-        b->Update(m->coins);
+//        cout << "Rendering rock in level" << endl;
+        m->coins->Update();
     }
-    //r->Update();
 }
 
 void Game::render() {
