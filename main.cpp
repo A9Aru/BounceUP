@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include <SDL2/SDL_ttf.h>
 
 using namespace std;
 const int FPS=60;
