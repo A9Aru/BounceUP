@@ -5,8 +5,6 @@ using namespace std;
 
 class Rock: public Object
 {
-private:
-    int length,breadth;
 public:
     Rock(const char* file,int x,int y);
     void Update(int i);

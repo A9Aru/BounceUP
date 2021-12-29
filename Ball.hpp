@@ -2,6 +2,7 @@
 #define Ball_hpp
 #include "Game.hpp"
 #include "Rock.hpp"
+#include "Coin.hpp"
 using namespace std;
 
 class Ball
@@ -18,8 +19,10 @@ public:
     Ball(const char* file,int x,int y, int r);
     
     void Update(class Rock * r);
+    void Update(class Coin* c);
     void Render();
     void keyboardinput(Rock *r);
+    void keyboardinput(Coin* c);
     void setdeg(double deg);
 };
 

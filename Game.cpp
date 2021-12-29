@@ -8,7 +8,7 @@ static const int height = 1280;
 static const int width = 720;
 
 Ball* b;
-Rock* r;
+//Rock* r, *r1;
 Map* m;
 SDL_Event Game::event;
 SDL_Renderer* Game::renderer = nullptr;
@@ -49,8 +49,10 @@ void Game::init(const char* title) {
             }
         }
         b = new Ball("images/2.png", height / 2, width / 2, 60);
-        r = new Rock("images/rock.png", 1100, 600);
+        //r = new Rock("rock.png", 1100, 600);
+        //r1 = new Rock("rock.png", 1000, 600);
         m = new Map();
+        m->drawMap();
     }
 }
 
@@ -65,15 +67,25 @@ void Game::eventhandler() {
 
 void Game::update() {
     //call this update for every switch case
-    b->Update(r);
+    for (int i = 0; i < m->level_rocks.size(); i++)
+    {
+        m->rocks = m->level_rocks[i];
+        cout << "Rendering rock in level" << endl;
+        b->Update(m->rocks);
+    }
+    for (int i = 0; i < m->level_coins.size(); i++)
+    {
+        m->coins = m->level_coins[i];
+        cout << "Rendering rock in level" << endl;
+        b->Update(m->coins);
+    }
     //r->Update();
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    m->drawMap();
     b->Render();
-    r->Render();
+    m->render_objects();
     //Add here to render every frame
     SDL_RenderPresent(renderer);
 }
