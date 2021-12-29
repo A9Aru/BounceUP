@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Object.hpp"
+#include "Rock.hpp"
+#include "Coin.hpp"
 #include <vector>
 
 class Map
@@ -15,7 +17,14 @@ class Map
 public:
 	Map();
 	~Map();
-	void loadMap(int arr[40][40]);
+	void loadMap(int arr[16][9]);
 	void drawMap();
+	void create_rock(int x, int y);
+	void create_coin(int x, int y);
+	void render_objects();
+	Coin* coins;
+	Rock* rocks;
+	vector<Rock *> level_rocks;
+	vector<Coin*> level_coins;
 	int map[40][40];
 };
