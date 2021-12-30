@@ -1,7 +1,7 @@
 #include"Button.hpp"
 #include<bits/stdc++.h>
 #include "Game.hpp"
-
+#include "SDL2/SDL.h"
 using namespace std;
 
 Button :: Button(int x_pos,int y_pos,int width,int height,const char* text){
@@ -39,3 +39,21 @@ bool Button :: isClicked(vector<int> a){
 
 	return false;
 }
+
+void Button :: Update(){
+	int x,y;
+	int flag = 0;
+	  //  static SDL_Event event;
+
+	SDL_Event mp = Game::event;
+	SDL_GetMouseState( &x, &y );
+	SDL_PollEvent(&mp);
+	vector<int> a;
+	if(mp.type == SDL_MOUSEBUTTONDOWN) flag = 1;
+	if(mp.type == SDL_QUIT) SDL_Quit();
+	a.push_back(x);
+	a.push_back(y);
+	a.push_back(flag);
+	if(isOnButton(a) && isClicked(a)) Game:: game_state = 1;
+}
+
