@@ -136,14 +136,14 @@ void Map::render_objects()
 	for (int i = 0; i < level_rocks.size(); i++)
 	{
 		rocks = level_rocks[i];
-		cout << "Rendering rock in level" << endl;
+//		cout << "Rendering rock in level" << endl;
 		rocks->Render();
 	}
 
 	for (int i = 0; i < level_coins.size(); i++)
 	{
 		coins = level_coins[i];
-		cout << "Rendering rock in level" << endl;
+//		cout << "Rendering rock in level" << endl;
 		coins->Render();
 	}
 

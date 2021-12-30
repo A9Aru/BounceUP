@@ -1,31 +1,54 @@
 #include "Game.hpp"
 #include <SDL2/SDL_ttf.h>
+#include "MainMenu.hpp"
 
 using namespace std;
 const int FPS=60;
 const int FD=1000/FPS;//framedelay
+
 int main()
 {
-   Game *bounce=new Game();
-    bounce->init("BounceUP");
+    Game *bounce=new Game();
+    MainMenu* newmain=new MainMenu();
+    if(SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_TIMER)){
+        cerr<<SDL_GetError()<<endl;
+    }
+    else{
+        
+        newmain->init();
+        newmain->render();
+        int run=0;
+        while(run==0){
+            run=newmain->EventHandler();
+            SDL_Delay(200);
+        }
+        newmain->clean();
+        if(run==1){
+            bounce->init("BounceUP");
+            Uint32 FB; //framebegin
+            int FT; //frametime
 
-    Uint32 FB; //framebegin
-    int FT; //frametime
+            while(!bounce->isClosed()){
+                FB=SDL_GetTicks();
+           
+                bounce->eventhandler();
+                bounce->update();
+                bounce->render();
 
-    while(!bounce->isClosed()){
-        FB=SDL_GetTicks();
-
-        bounce->eventhandler();
-        bounce->update();
-        bounce->render();
-
-        FT=SDL_GetTicks()-FB;
-        if(FD>FT){
-            SDL_Delay(FD-FT);
+                FT=SDL_GetTicks()-FB;
+                if(FD>FT){
+                    SDL_Delay(FD-FT);
+                }
+            }
+            bounce->clean();
+        }
+        else if(run==2){
+            newmain->~MainMenu();
+        }
+        else if(run==3){
+            //leaderboard....
         }
     }
-    bounce->clean();
-//
 //  // Home screen test code
 //    SDL_Window* window=nullptr;
 //    if(SDL_Init(SDL_INIT_VIDEO) < 0){
