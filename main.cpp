@@ -25,7 +25,7 @@ int main()
         }
     }
     bounce->clean();
-
+//
 //  // Home screen test code
 //    SDL_Window* window=nullptr;
 //    if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -41,7 +41,7 @@ int main()
 //    // Just like when we initialize our graphics subsystem,
 //    // we need to do the same for our font system.
 //    if(TTF_Init() == -1){
-//        std::cout << "Could not initailize SDL2_ttf, error: " << TTF_GetError() << std::endl; 
+//        std::cout << "Could not initailize SDL2_ttf, error: " << TTF_GetError() << std::endl;
 //    }else{
 //        std::cout << "SDL2_ttf system ready to go!" << std::endl;
 //    }
