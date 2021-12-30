@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include<iostream>
 #include"Texture.hpp"
+#include "Game.hpp"
 #include<bits/stdc++.h>
 #include<vector>
 
