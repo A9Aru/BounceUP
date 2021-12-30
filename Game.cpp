@@ -2,6 +2,7 @@
 #include "Ball.hpp"
 #include "Rock.hpp"
 #include "Map.hpp"
+#include "Button.hpp"
 using namespace std;
 
 static const int height = 1280;
@@ -12,6 +13,15 @@ Ball* b;
 Map* m;
 SDL_Event Game::event;
 SDL_Renderer* Game::renderer = nullptr;
+// game state is the screen we are in.
+// 0 is main menu.
+// 1 is leaderboard.
+// 2 is running gameplay.
+int game_state = 0; // in the main menu by default.
+// Buttons in the main menu.
+Button* play;
+Button* leaderboard;
+Button* exitwin;
 
 Game::Game() {
 
