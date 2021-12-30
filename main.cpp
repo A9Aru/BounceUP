@@ -20,7 +20,6 @@ int main()
         int run=0;
         while(run==0){
             run=newmain->EventHandler();
-            SDL_Delay(200);
         }
         newmain->clean();
         if(run==1){

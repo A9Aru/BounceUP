@@ -127,8 +127,8 @@ void Map::create_rock(int x, int y)
 
 void Map::create_coin(int x, int y)
 {
-	coins = new Coin("Coin1.png", x, y);
-	level_coins.push_back(coins);
+	coins = new Coin("images/Coin1.png", x, y);
+    level_coins.push_back(coins);
 }
 
 void Map::render_objects()
