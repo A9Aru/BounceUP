@@ -25,5 +25,8 @@ public:
 // void draw_button(Window *w); 
 	bool isOnButton(vector<int> a); // returns if True if mouse is on the button
 	bool isClicked(vector<int> a); // returs true if the Button is clicked
+	void Update();
+    void Render();
+    //void mouseinput(); // handles all the mouse events.
 
 }; 

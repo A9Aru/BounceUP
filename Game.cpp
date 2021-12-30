@@ -3,6 +3,7 @@
 #include "Rock.hpp"
 #include "Map.hpp"
 #include "Button.hpp"
+#include "Texture.hpp"
 using namespace std;
 
 static const int height = 1280;
@@ -17,8 +18,9 @@ SDL_Renderer* Game::renderer = nullptr;
 // 0 is main menu.
 // 1 is leaderboard.
 // 2 is running gameplay.
-int game_state = 0; // in the main menu by default.
 // Buttons in the main menu.
+int Game::game_state = 0;
+SDL_Texture *main_menu = nullptr;
 Button* play;
 Button* leaderboard;
 Button* exitwin;
@@ -32,6 +34,9 @@ Game::~Game() {
 }
 
 void Game::init(const char* title) {
+    game_state = 0; // in the main menu by default
+    play = new Button(1200,220,350,130,"NULL");  // Coordinates of the play button.
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         std::cerr << SDL_GetError() << endl;
@@ -46,7 +51,7 @@ void Game::init(const char* title) {
         }
         else {
             renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
+            main_menu = Texture::LoadTexture("main_menu.jpg",renderer);
             if (renderer == nullptr)
             {
                 cerr << SDL_GetError() << endl;
@@ -61,8 +66,13 @@ void Game::init(const char* title) {
         b = new Ball("images/2.png", height / 2, width / 2, 60);
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
+        if(game_state == 0){
+            // draw the Main Menu if the game state is 0.
+            SDL_RenderCopy(Game::renderer,main_menu, NULL,NULL);
+        }
         m = new Map();
-        m->drawMap();
+        if(game_state == 1){
+        m->drawMap();  }
     }
 }
 
@@ -70,6 +80,7 @@ void Game::eventhandler() {
     SDL_PollEvent(&event);
     switch (event.type) {
     case SDL_QUIT:
+
         closed = true;
         break;
     }
@@ -77,7 +88,11 @@ void Game::eventhandler() {
 
 void Game::update() {
     //call this update for every switch case
-    b->Update();
+    
+    if(game_state == 1){
+        m->drawMap();  
+        b->Update();
+
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
@@ -90,12 +105,20 @@ void Game::update() {
 //        cout << "Rendering rock in level" << endl;
         m->coins->Update();
     }
+        }
+    
+    if(game_state == 0){
+        play->Update();
+    }
+  cout << "GAME STATE IS " << game_state << endl;
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
+    if(game_state == 0) SDL_RenderCopy(Game::renderer,main_menu, NULL,NULL);
+    if(game_state == 1){
     b->Render();
-    m->render_objects();
+    m->render_objects(); }
     //Add here to render every frame
     SDL_RenderPresent(renderer);
 }

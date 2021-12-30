@@ -21,7 +21,8 @@ public:
  
     
     bool isClosed();
-    
+    static int game_state; // in the main menu by default.
+
     static SDL_Event event;
     static SDL_Renderer* renderer;
 private:
