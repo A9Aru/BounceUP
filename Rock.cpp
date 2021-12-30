@@ -1,5 +1,5 @@
 #include "Rock.hpp"
-#include "game.hpp"
+#include "Game.hpp"
 Rock::Rock(const char* file,int x,int y):Object(file,x, y, Game :: renderer)
 {
     Object::setdrec(x_pos,y_pos,80,80);
