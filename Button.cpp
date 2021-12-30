@@ -1,7 +1,9 @@
 #include"Button.hpp"
 #include<bits/stdc++.h>
+#include "Game.hpp"
 
 using namespace std;
+
 Button :: Button(int x_pos,int y_pos,int width,int height,const char* text){
 	this->x_pos = x_pos; 
 	this->y_pos = y_pos;
