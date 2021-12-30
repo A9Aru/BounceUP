@@ -77,11 +77,10 @@ void Game::init(const char* title) {
 }
 
 void Game::eventhandler() {
-    cout <<"WERE IN THE ENDGAME NOW"<<endl;
     SDL_PollEvent(&event);
     switch (event.type) {
     case SDL_QUIT:
-       cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"<<endl;
+
         closed = true;
         break;
     }
