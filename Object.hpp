@@ -18,6 +18,7 @@ public:
     Object(const char* file,int x,int y,SDL_Renderer* renderer);
     void setsrec(int x,int y,int width,int height);
     void setdrec(int x,int y,int width,int height);
+    SDL_Rect* getdrec();
 };
 
 

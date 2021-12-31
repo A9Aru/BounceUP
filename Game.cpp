@@ -4,6 +4,7 @@
 #include "Map.hpp"
 #include "Button.hpp"
 #include "Texture.hpp"
+#include "CollisionHandler.hpp"
 using namespace std;
 
 static const int height = 720;
@@ -13,6 +14,7 @@ Ball* b;
 //Rock* r, *r1;
 Map* m;
 SDL_Event Game::event;
+CollisionHandler* handle;
 SDL_Renderer* Game::renderer = nullptr;
 // game state is the screen we are in.
 // 0 is main menu.
@@ -62,6 +64,7 @@ void Game::init(const char* title) {
         //r1 = new Rock("rock.png", 1000, 600);
         m = new Map();
         m->drawMap();
+        handle = new CollisionHandler(m);
     }
 }
 
@@ -91,7 +94,7 @@ void Game::update() {
         //        cout << "Rendering rock in level" << endl;
         m->coins->Update();
     }
-    
+    handle->checkMapCollision(b->getdrec());
 }
 
 void Game::render() {

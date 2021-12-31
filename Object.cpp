@@ -19,3 +19,8 @@ void Object::setdrec(int x,int y,int width,int height){
     drec.h=height;
     drec.w=width;
 }
+
+SDL_Rect* Object::getdrec()
+{
+    return &drec;
+}

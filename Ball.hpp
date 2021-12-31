@@ -23,6 +23,7 @@ public:
     void keyboardinput();
 //    void keyboardinput(Coin* c);
     void setdeg(double deg);
+    SDL_Rect* getdrec();
 };
 
 #endif /* Ball_hpp */

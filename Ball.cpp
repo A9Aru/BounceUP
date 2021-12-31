@@ -111,3 +111,8 @@ void Ball::keyboardinput() {
         cout << "Rotate Left by " << *degrees << "\n";
     }
 }
+
+SDL_Rect* Ball::getdrec()
+{
+    return &drec;
+}
