@@ -7,7 +7,7 @@ public:
         box.x = x_pos;
         box.y= y_pos;
         box.w= width;
-        box.y = height;
+        box.h = height;
     }
 
 }; 
