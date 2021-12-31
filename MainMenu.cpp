@@ -34,7 +34,7 @@ void MainMenu::init()
             }
             else
             {
-                bg=Texture::LoadTexture("images/main_menu.jpg",ren);
+                bg=Texture::LoadTexture("images/Menu.JPEG",ren);
                 play=new Button(855,190,345,165);
                 leaderboard=new Button(80,650,50,50);
                 exitwin=new Button(855,392,345,165);
@@ -60,15 +60,15 @@ int MainMenu::EventHandler(){
     int x,y;
     Uint32 buttons;
     buttons=SDL_GetMouseState(&x, &y);
-//    std::cout<<x<<" X "<<x<<"Y\n";
-    if((buttons && SDL_BUTTON_LMASK)!=0){
-            if( (x > play->box.x) && (x<(play->box.x + play->box.w)) && (x > play->box.y ) && (x < (play->box.y + play->box.h))){
+    std::cout<<x<<" X "<<y<<"Y\n";
+    if(ev.type==SDL_MOUSEBUTTONDOWN){
+            if( (x > play->box.x) && (x<(play->box.x + play->box.w)) && (y > play->box.y ) && (y < (play->box.y + play->box.h))){
                 return PLAY;
             }
-            else if ((x > exitwin->box.x) && (x<(exitwin->box.x + exitwin->box.w)) && (x > exitwin->box.y ) && (x < (exitwin->box.y + exitwin->box.h))){
+            else if ((x > exitwin->box.x) && (x<(exitwin->box.x + exitwin->box.w)) && (y > exitwin->box.y ) && (y< (exitwin->box.y + exitwin->box.h))){
                 return EXIT;
             }
-            else if((x > leaderboard->box.x-leaderboard->box.w) && (x<(leaderboard->box.x + leaderboard->box.w)) && (x > leaderboard->box.y - leaderboard->box.h) && (x < (leaderboard->box.y + leaderboard->box.h))){
+            else if((x > leaderboard->box.x-leaderboard->box.w) && (y<(leaderboard->box.x + leaderboard->box.w)) && (y > leaderboard->box.y - leaderboard->box.h) && (x < (leaderboard->box.y + leaderboard->box.h))){
                 return LEADERBOARD;
             }
     }
