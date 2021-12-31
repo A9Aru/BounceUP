@@ -1,12 +1,20 @@
 #include "MainMenu.hpp"
 #include "Texture.hpp"
 
+typedef enum  {
+    RUN,
+    PLAY,
+    EXIT,
+    LEADERBOARD,
+} ButtonPressed;
+
 MainMenu::~MainMenu(){
     play=NULL;
     exitwin=NULL;
     leaderboard=NULL;
     SDL_Quit();
 }
+
 void MainMenu::init()
 {
     if(SDL_Init(SDL_INIT_VIDEO)== 0){
@@ -49,20 +57,23 @@ int MainMenu::EventHandler(){
             break;
     }
     SDL_PumpEvents();
-    std::cout<<ev.button.x<<" X "<<ev.button.y<<"Y\n";
-    if(ev.type == SDL_MOUSEBUTTONDOWN){
-            if( (ev.button.x > play->box.x) && (ev.button.x<(play->box.x + play->box.w)) && (ev.button.y > play->box.y ) && (ev.button.y < (play->box.y + play->box.h))){
-                return 1;
+    int x,y;
+    Uint32 buttons;
+    buttons=SDL_GetMouseState(&x, &y);
+//    std::cout<<x<<" X "<<x<<"Y\n";
+    if((buttons && SDL_BUTTON_LMASK)!=0){
+            if( (x > play->box.x) && (x<(play->box.x + play->box.w)) && (x > play->box.y ) && (x < (play->box.y + play->box.h))){
+                return PLAY;
             }
-            else if ((ev.button.x > exitwin->box.x) && (ev.button.x<(exitwin->box.x + exitwin->box.w)) && (ev.button.y > exitwin->box.y ) && (ev.button.y < (exitwin->box.y + exitwin->box.h))){
-                return 2;
+            else if ((x > exitwin->box.x) && (x<(exitwin->box.x + exitwin->box.w)) && (x > exitwin->box.y ) && (x < (exitwin->box.y + exitwin->box.h))){
+                return EXIT;
             }
-            else if((ev.button.x > leaderboard->box.x-leaderboard->box.w) && (ev.button.x<(leaderboard->box.x + leaderboard->box.w)) && (ev.button.y > leaderboard->box.y - leaderboard->box.h) && (ev.button.y < (leaderboard->box.y + leaderboard->box.h))){
-                return 3;
+            else if((x > leaderboard->box.x-leaderboard->box.w) && (x<(leaderboard->box.x + leaderboard->box.w)) && (x > leaderboard->box.y - leaderboard->box.h) && (x < (leaderboard->box.y + leaderboard->box.h))){
+                return LEADERBOARD;
             }
     }
-    if(closed) return 2;
-    return 0;
+    if(closed) return EXIT;
+    return RUN;
 }
 
 void MainMenu::render(){
