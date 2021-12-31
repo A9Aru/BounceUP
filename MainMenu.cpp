@@ -60,15 +60,18 @@ int MainMenu::EventHandler(){
     int x,y;
     Uint32 buttons;
     buttons=SDL_GetMouseState(&x, &y);
-    std::cout<<x<<" X "<<y<<"Y\n";
+//    std::cout<<x<<" X "<<y<<"Y\n";
     if(ev.type==SDL_MOUSEBUTTONDOWN){
             if( (x > play->box.x) && (x<(play->box.x + play->box.w)) && (y > play->box.y ) && (y < (play->box.y + play->box.h))){
+                std::cout<<"Play Pressed\n";
                 return PLAY;
             }
             else if ((x > exitwin->box.x) && (x<(exitwin->box.x + exitwin->box.w)) && (y > exitwin->box.y ) && (y< (exitwin->box.y + exitwin->box.h))){
+                std::cout<<"Exit Pressed\n";
                 return EXIT;
             }
             else if((x > leaderboard->box.x-leaderboard->box.w) && (y<(leaderboard->box.x + leaderboard->box.w)) && (y > leaderboard->box.y - leaderboard->box.h) && (x < (leaderboard->box.y + leaderboard->box.h))){
+                std::cout<<"Leaderboard Pressed\n";
                 return LEADERBOARD;
             }
     }
