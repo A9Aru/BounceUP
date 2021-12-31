@@ -38,7 +38,7 @@ void MainMenu::init()
             else
             {
                 // Rendering the screen and setting the state back to menu if the back button is triggered.
-                bg=Texture::LoadTexture("images/main_menu.jpg",ren);
+                bg=Texture::LoadTexture("images/Menu.JPEG",ren);
                 lb=Texture::LoadTexture("images/leader_board.jpg",ren);
                 play=new Button(855,190,345,165);
                 leaderboard=new Button(80,650,50,50);
