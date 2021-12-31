@@ -9,6 +9,7 @@ private:
     Button* play;
     Button* exitwin;
     Button* leaderboard;
+    Button *back; // go back button in leaderboard.
 public:
     ~MainMenu();
     void init();

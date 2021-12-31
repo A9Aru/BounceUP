@@ -18,11 +18,12 @@ int main()
         newmain->init();
         newmain->render();
         int run=0;
-        while(run==0){
+        while(run==0 || run == 3){
             run=newmain->EventHandler();
+            if(run == 3 )  newmain->render();
         }
         newmain->clean();
-        if(run==1){
+        if(run==1 ){
             bounce->init("BounceUP");
             Uint32 FB; //framebegin
             int FT; //frametime
@@ -44,9 +45,7 @@ int main()
         else if(run==2){
             newmain->~MainMenu();
         }
-        else if(run==3){
-            //leaderboard....
-        }
+
     }
 //  // Home screen test code
 //    SDL_Window* window=nullptr;
