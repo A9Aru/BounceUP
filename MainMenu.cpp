@@ -66,7 +66,7 @@ int MainMenu::EventHandler(){
     int x,y;
     Uint32 buttons;
     buttons=SDL_GetMouseState(&x, &y);
-     std::cout<<x<<" X "<<y<<"Y\n";
+    std::cout<<x<<" X "<<y<<"Y\n";
     if((buttons && SDL_BUTTON_LMASK)!=0){
             if( (x > play->box.x) && (x<(play->box.x + play->box.w)) && (y > play->box.y ) && (y < (play->box.y + play->box.h))){
                 return PLAY;
@@ -81,7 +81,7 @@ int MainMenu::EventHandler(){
                     SDL_RenderClear(ren);
                     SDL_RenderCopy(ren,bg, NULL,NULL);
                     SDL_RenderPresent(ren);
-                    return 0;
+                    return RUN;
             }
     }
     if(closed) {
