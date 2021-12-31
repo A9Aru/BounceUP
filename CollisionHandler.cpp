@@ -12,14 +12,31 @@ bool CollisionHandler::checkCollision(SDL_Rect *a, SDL_Rect *b)
 	return (x_overlap && y_overlap);
 }
 
-void CollisionHandler::checkMapCollision(SDL_Rect *a)
+void CollisionHandler::checkMapCollision(SDL_Rect *a,Score *s)
 {
 	for (int i=0; i<m->level_coins.size(); i++)
 	{
-		if (checkCollision(a, m->level_coins[i]->getdrec()))
+		if (checkCircularCollision(a, m->level_coins[i]->getdrec()))
 		{
 			m->level_coins.erase(m->level_coins.begin() + i);
+            s->updatescore(5);
 			break;
 		}
 	}
+}
+
+bool CollisionHandler::checkCircularCollision(SDL_Rect *a, SDL_Rect *b){
+    int x1=a->x+(a->w)/2;
+    int x2=b->x+(b->w)/2;
+    int y1=a->y+(a->h)/2;
+    int y2=b->y+(b->h)/2;
+    int disc=(x2-x1)*(x2-x1)+(y2-y1)*(y2-y1);
+    int sumofr=((a->h)/2)+((b->h)/2);
+    sumofr=sumofr*sumofr;
+    
+    if(disc<=sumofr) {
+        std::cout<< x1<<" x1 "<<x2<<" x2 "<<y1<<" y1 "<<y2<<" y2 "<<disc<<" c "<<sumofr<<" r\n";
+        return true;
+    }
+    return false;
 }

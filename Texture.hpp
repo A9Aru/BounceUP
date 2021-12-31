@@ -8,6 +8,6 @@
 class Texture{
 public:
     static SDL_Texture* LoadTexture(const char* filename, SDL_Renderer* ren);
-    static void draw_text(SDL_Texture* text, SDL_Rect src, SDL_Rect dest);
+    static void draw_text(SDL_Texture* text, SDL_Rect* src, SDL_Rect* dest);
 };
 #endif /* Texture_hpp */

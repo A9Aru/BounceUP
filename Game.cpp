@@ -5,6 +5,7 @@
 #include "Button.hpp"
 #include "Texture.hpp"
 #include "CollisionHandler.hpp"
+#include "Score.hpp"
 using namespace std;
 
 static const int height = 720;
@@ -23,6 +24,7 @@ SDL_Renderer* Game::renderer = nullptr;
 // Buttons in the main menu.
 //int Game::game_state = 0;
 SDL_Texture *main_menu = nullptr;
+Score* s;
 
 Game::Game() {
     
@@ -60,6 +62,7 @@ void Game::init(const char* title) {
             }
         }
         b = new Ball("images/1.png", width / 2, height / 2, 60);
+        s=new Score("8bitOperatorPlus8-Regular.ttf");
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
         m = new Map();
@@ -79,6 +82,7 @@ void Game::eventhandler() {
 
 void Game::update() {
     //call this update for every switch case
+    handle->checkMapCollision(b->getdrec(),s);
     
     b->Update();
     
@@ -94,13 +98,13 @@ void Game::update() {
         //        cout << "Rendering rock in level" << endl;
         m->coins->Update();
     }
-    handle->checkMapCollision(b->getdrec());
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     m->render_objects();
     b->Render();
+    s->render();
     //Add here to render every frame
     SDL_RenderPresent(renderer);
 }
