@@ -3,9 +3,9 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include "Texture.hpp"
 
 
