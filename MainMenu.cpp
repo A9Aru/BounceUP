@@ -4,10 +4,11 @@
 #include <SDL2/SDL_image.h>
 
 typedef enum  {
-    RUN,
+    MAINMENU,
     PLAY,
     EXIT,
     LEADERBOARD,
+    GAMEOVER
 } ButtonPressed;
 
 MainMenu::~MainMenu(){
@@ -22,6 +23,9 @@ void MainMenu::init()
     
     if(SDL_Init(SDL_INIT_VIDEO)== 0){
         win = SDL_CreateWindow("Main Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W, H, 0);
+        SDL_Surface *icon=IMG_Load("images/icon.png");
+        SDL_SetWindowIcon(win,icon);
+        SDL_FreeSurface(icon);
         if (win == nullptr)
         {
             std::cerr << SDL_GetError() << std::endl;
@@ -44,6 +48,7 @@ void MainMenu::init()
                 leaderboard=new Button(80,650,50,50);
                 exitwin=new Button(855,392,345,165);
                  back = new Button(1101,575,141,100);
+                closed=false;
                 std:: cout << "Window Created\n";
             }
         }
@@ -57,45 +62,49 @@ void MainMenu::init()
 
 int MainMenu::EventHandler(){
     SDL_PollEvent(&ev);
+    SDL_PumpEvents();
+    int x,y,d=MAINMENU;
+    Uint32 buttons;
+    buttons=SDL_GetMouseState(&x, &y);
     switch (ev.type) {
         case SDL_QUIT:
             closed = true;
             break;
-    }
-    SDL_PumpEvents();
-    int x,y;
-    Uint32 buttons;
-    buttons=SDL_GetMouseState(&x, &y);
-    std::cout<<x<<" X "<<y<<"Y\n";
-    if((buttons && SDL_BUTTON_LMASK)!=0){
+        case SDL_MOUSEBUTTONDOWN:
             if( (x > play->box.x) && (x<(play->box.x + play->box.w)) && (y > play->box.y ) && (y < (play->box.y + play->box.h))){
-                return PLAY;
+                d=PLAY;
+                std::cout<<"PLAY\n";
             }
             else if ((x > exitwin->box.x) && (x<(exitwin->box.x + exitwin->box.w)) && (y > exitwin->box.y ) && (y < (exitwin->box.y + exitwin->box.h))){
-                return EXIT;
+                d=EXIT;
+                std::cout<<"EXIT\n";
             }
             else if((x > leaderboard->box.x-leaderboard->box.w) && (x<(leaderboard->box.x + leaderboard->box.w)) && (y > leaderboard->box.y - leaderboard->box.h) && (y < (leaderboard->box.y + leaderboard->box.h))){
-                return LEADERBOARD; 
+                d=LEADERBOARD;
+                std::cout<<"LEADERBOARD\n";
             }
             else if((x > back->box.x-back->box.w) && (x<(back->box.x + back->box.w)) && (y > back->box.y - back->box.h) && (y < (back->box.y + back->box.h))){
                     SDL_RenderClear(ren);
                     SDL_RenderCopy(ren,bg, NULL,NULL);
                     SDL_RenderPresent(ren);
-                    return RUN;
+                    d=MAINMENU;
+                std::cout<<"LEADERBOARD\n";
             }
+            break;
     }
+    
     if(closed) {
         return EXIT;}
-    return RUN;
+    return d;
 }
 
 void MainMenu::render(){
     int state = EventHandler();
-    if(state == 0){
+    if(state == MAINMENU){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,bg, NULL,NULL);
     SDL_RenderPresent(ren);  }
-    if(state == 3){
+    if(state == LEADERBOARD){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,lb, NULL,NULL);
     SDL_RenderPresent(ren);   }

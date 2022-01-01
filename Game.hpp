@@ -16,11 +16,12 @@ public:
     void init(const char* title);
     
     void eventhandler();
-    void update();
+    int update();
     void render();
     void clean();
  
     bool isClosed();
+    void SetClosed(bool set);
     //void endGame();
 
     static SDL_Event event;

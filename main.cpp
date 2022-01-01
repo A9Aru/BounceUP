@@ -1,51 +1,79 @@
 #include "Game.hpp"
 #include <SDL2/SDL_ttf.h>
 #include "MainMenu.hpp"
-
+#include "EndScreen.hpp"
 using namespace std;
 const int FPS=60;
 const int FD=1000/FPS;//framedelay
+
+typedef enum  {
+    MAINMENU,
+    PLAY,
+    EXIT,
+    LEADERBOARD,
+    GAMEOVER,
+} ButtonPressed;
+
 
 int main()
 {
     Game *bounce=new Game();
     MainMenu* newmain=new MainMenu();
+    EndScreen* ends=new EndScreen();
+    
     if(SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_TIMER)){
         cerr<<SDL_GetError()<<endl;
     }
     else{
-        
-        newmain->init();
-        newmain->render();
-        int run=0;
-        while(run==0 || run == 3){
-            run=newmain->EventHandler();
-            if(run == 3 )  newmain->render();
-        }
-        newmain->clean();
-        if(run==1 ){
-            bounce->init("BounceUP");
-            Uint32 FB; //framebegin
-            int FT; //frametime
-
-            while(!bounce->isClosed()){
-                FB=SDL_GetTicks();
-           
-                bounce->eventhandler();
-                bounce->update();
-                bounce->render();
-
-                FT=SDL_GetTicks()-FB;
-                if(FD>FT){
-                    SDL_Delay(FD-FT);
+        int run=MAINMENU ;
+        while(run==MAINMENU || run==PLAY){
+            
+            if(run==MAINMENU){
+                newmain->init();
+                newmain->render();
+                
+                while(run==MAINMENU || run == LEADERBOARD){
+                    run=newmain->EventHandler();
+                    if(run == LEADERBOARD )  newmain->render();
                 }
+                newmain->clean();
             }
-            bounce->clean();
-        }
-        else if(run==2){
-            newmain->~MainMenu();
-        }
+            while(run==PLAY ){
+                bounce->init("BounceUP");
+//                bounce->SetClosed(false);
+                Uint32 FB; //framebegin
+                int FT; //frametime
+                
+                while(!bounce->isClosed() && run==PLAY){
+                    FB=SDL_GetTicks();
+                    
+                    bounce->eventhandler();
+                    run=bounce->update(); //returns 1 i.e PLAY returns 4 for Gameover to render endscreen
+                    bounce->render();
+                    
+                    FT=SDL_GetTicks()-FB;
+                    if(FD>FT){
+                        SDL_Delay(FD-FT);
+                    }
+                }
+                bounce->clean();
+            }
 
+            if(run==GAMEOVER){
+                ends->init();
+                ends->render();
+                while (run==GAMEOVER) {
+                    run=ends->EventHandler();
+                }
+                
+                ends->clean();
+                
+            }
+        }
+        if(run==EXIT){
+            newmain->~MainMenu();
+            ends->~EndScreen();
+        }
     }
 //  // Home screen test code
 //    SDL_Window* window=nullptr;

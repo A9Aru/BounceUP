@@ -27,6 +27,14 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Texture* main_menu = nullptr;
 Score* s;
 
+typedef enum  {
+    MAINMENU,
+    PLAY,
+    EXIT,
+    LEADERBOARD,
+    GAMEOVER
+} ButtonPressed;
+
 Game::Game() {
 
 }
@@ -77,17 +85,17 @@ void Game::eventhandler() {
     switch (event.type) {
     case SDL_QUIT:
         closed = true;
-        break;
+            break;
     }
 }
 
-void Game::update() {
+int Game::update() {
     //call this update for every switch case
     handle->checkMapCollision(b->getdrec(), s);
-    if (handle->checkFlag(b->getdrec()))
+    if (handle->checkFlag(b->getdrec())|| handle->checkObstacle(b->getdrec())){
         closed = true;
-    if (handle->checkObstacle(b->getdrec()))
-        closed = true;
+        return GAMEOVER;
+    }
     /*for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
@@ -120,6 +128,7 @@ void Game::update() {
         m->coins->Update();
     }
     m->flag->Update();
+    return PLAY;
 }
 
 void Game::render() {
@@ -140,7 +149,9 @@ void Game::clean() {
 bool Game::isClosed() {
     return closed;
 }
-
+void Game::SetClosed(bool set){
+    closed=set;
+}
 /*void Game::endGame()
 {
     if(b->getdrec()->x && b->getdrec()->y)
