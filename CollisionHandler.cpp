@@ -1,41 +1,68 @@
 #include"CollisionHandler.hpp"
 
-CollisionHandler::CollisionHandler(Map *lev)
+CollisionHandler::CollisionHandler(Map* lev)
 {
-	m = lev;
+    m = lev;
 }
 
-bool CollisionHandler::checkCollision(SDL_Rect *a, SDL_Rect *b)
+bool CollisionHandler::checkCollision(SDL_Rect* a, SDL_Rect* b)
 {
-	bool x_overlap = (a->x < b->x + b->w) && (a->x + b->w > b->x);
-	bool y_overlap = (a->y < b->y + b->h) && (a->y + b->h > b->y);
-	return (x_overlap && y_overlap);
+    bool x_overlap = (a->x < b->x + b->w) && (a->x + b->w > b->x);
+    bool y_overlap = (a->y < b->y + b->h) && (a->y + b->h > b->y);
+    return (x_overlap && y_overlap);
 }
 
-void CollisionHandler::checkMapCollision(SDL_Rect *a,Score *s)
+void CollisionHandler::checkMapCollision(SDL_Rect* a, Score* s)
 {
-	for (int i=0; i<m->level_coins.size(); i++)
-	{
-		if (checkCircularCollision(a, m->level_coins[i]->getdrec()))
-		{
-			m->level_coins.erase(m->level_coins.begin() + i);
+    for (int i = 0; i < m->level_coins.size(); i++)
+    {
+        if (checkCircularCollision(a, m->level_coins[i]->getdrec()))
+        {
+            m->level_coins.erase(m->level_coins.begin() + i);
             s->updatescore(5);
-			break;
-		}
-	}
+            break;
+        }
+    }
+    for (int i = 0; i < m->level_rocks.size(); i++)
+    {
+        m->rocks = m->level_rocks[i];
+        if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
+        {
+            if (SDL_HasIntersection(a,m->rocks->getdrec()))
+                cout << "Wall collision" << endl;
+        }
+    }
 }
 
-bool CollisionHandler::checkCircularCollision(SDL_Rect *a, SDL_Rect *b){
-    int x1=a->x+(a->w)/2;
-    int x2=b->x+(b->w)/2;
-    int y1=a->y+(a->h)/2;
-    int y2=b->y+(b->h)/2;
-    int disc=(x2-x1)*(x2-x1)+(y2-y1)*(y2-y1);
-    int sumofr=((a->h)/2)+((b->h)/2);
-    sumofr=sumofr*sumofr;
-    
-    if(disc<=sumofr) {
-        std::cout<< x1<<" x1 "<<x2<<" x2 "<<y1<<" y1 "<<y2<<" y2 "<<disc<<" c "<<sumofr<<" r\n";
+
+bool CollisionHandler::checkFlag(SDL_Rect* a)
+{
+    return(checkCircularCollision(a, m->flag->getdrec()));
+}
+
+bool CollisionHandler::checkObstacle(SDL_Rect* a)
+{
+    for (int i = 0; i < m->level_obstacles.size(); i++)
+    {
+        if (checkCircularCollision(a, m->level_obstacles[i]->getdrec()))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool CollisionHandler::checkCircularCollision(SDL_Rect* a, SDL_Rect* b) {
+    int x1 = a->x + (a->w) / 2;
+    int x2 = b->x + (b->w) / 2;
+    int y1 = a->y + (a->h) / 2;
+    int y2 = b->y + (b->h) / 2;
+    int disc = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+    int sumofr = ((a->h) / 2) + ((b->h) / 2);
+    sumofr = sumofr * sumofr;
+
+    if (disc <= sumofr) {
+        std::cout << x1 << " x1 " << x2 << " x2 " << y1 << " y1 " << y2 << " y2 " << disc << " c " << sumofr << " r\n";
         return true;
     }
     return false;

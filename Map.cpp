@@ -4,10 +4,10 @@
 int lev1_map[64][9] = {
 	{1,1,1,1,1,1,1,1,1},
 	{0,0,0,0,0,0,0,0,1},
-	{0,0,0,0,0,2,0,0,1},
+	{0,0,0,0,0,2,0,3,1},
 	{0,0,0,0,0,0,0,0,1},
 	{0,0,0,0,0,0,0,0,1},
-	{0,0,0,0,0,0,0,0,1},
+	{0,0,0,0,0,0,0,3,1},
 	{0,0,0,0,0,0,0,0,1},
 	{0,2,0,0,1,1,1,1,1},
 	{0,0,0,0,1,1,1,1,1},
@@ -56,7 +56,7 @@ int lev1_map[64][9] = {
 	{0,0,0,0,0,0,0,0,1},
 	{0,0,0,0,0,0,0,0,1},
 	{0,0,0,0,0,2,0,0,1},
-	{0,0,0,0,0,1,1,1,1},
+	{0,0,0,0,0,1,0,0,1},
 	{0,0,0,0,0,1,2,0,1},
 	{0,0,0,0,0,1,1,0,1},
 	{0,0,0,0,0,1,1,0,1},
@@ -66,9 +66,9 @@ int lev1_map[64][9] = {
 	{0,0,0,0,0,0,0,1,1},
 	{0,0,0,0,0,0,0,0,1},
 	{0,0,0,2,0,0,0,0,1},
+	{0,0,0,0,0,0,0,3,1},
 	{0,0,0,0,0,0,0,0,1},
-	{0,0,0,0,0,0,0,0,1},
-	{0,0,0,0,1,1,1,0,0},
+	{1,1,1,1,1,1,1,4,1},
 };
 Map::Map()
 {
@@ -111,6 +111,13 @@ void Map::drawMap()
 				cout << "creating coin" << endl;
 				create_coin(dest.x, dest.y);
 				break;
+			case 3:
+				cout << "Creating obstacle" << endl;
+				create_obstacle(dest.x, dest.y);
+				break;
+			case 4:
+				cout << "Creating flag" << endl;
+				flag = new FFlag("images/flag.png", dest.x, dest.y);
 			default:
 				break;
 			}
@@ -123,6 +130,12 @@ void Map::create_rock(int x, int y)
 {
 	rocks = new Rock("images/brick.png", x, y);
 	level_rocks.push_back(rocks);
+}
+
+void Map::create_obstacle(int x, int y)
+{
+	obstacles = new Obstacle("images/spike monster A.png", x, y);
+	level_obstacles.push_back(obstacles);
 }
 
 void Map::create_coin(int x, int y)
@@ -146,6 +159,15 @@ void Map::render_objects()
 //		cout << "Rendering rock in level" << endl;
 		coins->Render();
 	}
+
+	for (int i = 0; i < level_obstacles.size(); i++)
+	{
+		obstacles = level_obstacles[i];
+		//		cout << "Rendering rock in level" << endl;
+		obstacles->Render();
+	}
+	flag->Render();
+
 
 }
 

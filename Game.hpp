@@ -3,8 +3,9 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <string>
+#include <SDL_image.h>
 #include "Texture.hpp"
 
 
@@ -20,6 +21,7 @@ public:
     void clean();
  
     bool isClosed();
+    //void endGame();
 
     static SDL_Event event;
     static SDL_Renderer* renderer;
