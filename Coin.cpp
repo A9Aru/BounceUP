@@ -22,11 +22,11 @@ void Coin::Update() {
 // When D is Pressed
     if (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT]) {
         cout << "D is pressed\n";
-        this->Updatepos(-1);
+        this->Updatepos(-5);
     }
 //              When A is pressed i.e LEFT arrow
     else if (currkey[SDL_SCANCODE_A] || currkey[SDL_SCANCODE_LEFT]) {
         cout << "A is pressed\n";
-        this->Updatepos(1);
+        this->Updatepos(5);
     }
 }
