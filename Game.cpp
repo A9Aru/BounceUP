@@ -27,7 +27,7 @@ typedef enum {
     EXIT,
     LEADERBOARD,
     GAMEOVER
-} ButtonPressed;
+} GAMESTATE;
 
 Game::Game() {
 
