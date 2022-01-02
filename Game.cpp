@@ -18,15 +18,9 @@ Map* m;
 SDL_Event Game::event;
 CollisionHandler* handle;
 SDL_Renderer* Game::renderer = nullptr;
-// game state is the screen we are in.
-// 0 is main menu.
-// 1 is leaderboard.
-// 2 is running gameplay.
-// Buttons in the main menu.
-//int Game::game_state = 0;
 SDL_Texture* main_menu = nullptr;
 Score* s;
-
+bool ex=false;
 typedef enum {
     MAINMENU,
     PLAY,
@@ -85,6 +79,7 @@ void Game::eventhandler() {
     switch (event.type) {
     case SDL_QUIT:
         closed = true;
+            ex=true;
         break;
     }
 }
@@ -120,6 +115,7 @@ int Game::update() {
         m->coins->Update(l,r);
     }
     m->flag->Update();
+    if(closed==true && ex==true) return EXIT;
     return PLAY;
 }
 
@@ -144,8 +140,3 @@ bool Game::isClosed() {
 void Game::SetClosed(bool set) {
     closed = set;
 }
-/*void Game::endGame()
-{
-    if(b->getdrec()->x && b->getdrec()->y)
-
-}*/
