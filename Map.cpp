@@ -27,7 +27,7 @@ int lev1_map[64][9] = {
 	{1,0,0,0,0,0,0,3,1},
 	{1,0,0,0,0,0,0,0,1},
 	{1,0,0,3,1,1,1,1,1},
-	{1,0,0,5,1,1,1,1,1},
+	{1,0,0,0,1,1,1,1,1},
 	{1,1,0,0,0,0,0,0,1},
 	{1,1,0,0,0,0,0,0,1},
 	{1,1,0,0,0,0,0,3,1},
@@ -66,7 +66,7 @@ int lev1_map[64][9] = {
 	{1,0,0,0,0,0,0,1,1},
 	{1,0,0,0,0,0,0,0,1},
 	{1,0,0,2,0,0,0,0,1},
-	{1,0,0,0,0,0,0,3,1},
+	{1,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,4,1},
 };
@@ -100,7 +100,7 @@ void Map::drawMap()
 		{
 			type = map[i][j];
 			dest.y = j * 80;
-			dest.x = i * 80;
+            dest.x = i * 80;
 			switch (type)
 			{
 			case 1:
@@ -160,27 +160,23 @@ void Map::render_objects()
 	for (int i = 0; i < level_rocks.size(); i++)
 	{
 		rocks = level_rocks[i];
-		//		cout << "Rendering rock in level" << endl;
 		rocks->Render();
 	}
 
 	for (int i = 0; i < level_coins.size(); i++)
 	{
 		coins = level_coins[i];
-		//		cout << "Rendering rock in level" << endl;
 		coins->Render();
 	}
 
 	for (int i = 0; i < level_obstacles.size(); i++)
 	{
 		obstacles = level_obstacles[i];
-		//		cout << "Rendering rock in level" << endl;
 		obstacles->Render();
 	}
 	for (int i = 0; i < level_obstacles1.size(); i++)
 	{
 		obstacles1 = level_obstacles1[i];
-		//		cout << "Rendering rock in level" << endl;
 		obstacles1->Render();
 	}
 	flag->Render();

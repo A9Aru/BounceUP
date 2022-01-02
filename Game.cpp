@@ -93,37 +93,34 @@ int Game::update() {
     }
     bool d = handle->checkWallDownCollision(b->getdrec());
     bool u = handle->checkWallUpCollision(b->getdrec());
-    b->Update(d,u);
     bool l = handle->checkWallLeftCollision(b->getdrec());
     bool r = handle->checkWallRightCollision(b->getdrec());
+    b->Update(d,u);
+    
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
-        //            cout << "Rendering rock in level" << endl;
         m->rocks->Update(l,r);
     }
 
     for (int i = 0; i < m->level_obstacles.size(); i++)
     {
         m->obstacles = m->level_obstacles[i];
-        //            cout << "Rendering rock in level" << endl;
         m->obstacles->Update(l,r);
     }
 
     for (int i = 0; i < m->level_obstacles1.size(); i++)
     {
         m->obstacles1 = m->level_obstacles1[i];
-        //            cout << "Rendering rock in level" << endl;
         m->obstacles1->Update(l, r);
     }
 
     for (int i = 0; i < m->level_coins.size(); i++)
     {
         m->coins = m->level_coins[i];
-        //        cout << "Rendering rock in level" << endl;
         m->coins->Update(l,r);
     }
-    m->flag->Update();
+    m->flag->Update(l,r);
     if(closed==true && ex==true) return EXIT;
     return PLAY;
 }
@@ -134,7 +131,6 @@ void Game::render() {
     b->Render();
     s->render();
     cout << b->getdrec()->x << " " << b->getdrec()->y << endl;
-    //Add here to render every frame
     SDL_RenderPresent(renderer);
 }
 

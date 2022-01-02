@@ -21,15 +21,12 @@ void Rock::Render(){
 void Rock::Update(bool left, bool right) {
     const Uint8* currkey = SDL_GetKeyboardState(NULL);
     // When D is Pressed
-    //cout << "left in update" << left << endl;
     if (right == true && (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT])) {
-       // cout << "D is pressed\n";
         this->Updatepos(-5);
     }
     //              When A is pressed i.e LEFT arrow
     
     else if (left == true && (currkey[SDL_SCANCODE_A] || currkey[SDL_SCANCODE_LEFT])) {
-          //  cout << "A is pressed\n";
             this->Updatepos(5);
         }
 }

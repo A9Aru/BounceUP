@@ -80,11 +80,11 @@ int EndScreen::EventHandler(){
                 return PLAY;
             }
             else if ((x > exitwin->box.x) && (x<(exitwin->box.x + exitwin->box.w)) && (y > exitwin->box.y ) && (y < (exitwin->box.y + exitwin->box.h))){
-                std::cout<<"exit\n";
+                std::cout<<"EXIT\n";
                 return EXIT;
             }
             else if(((x > menu->box.x) && (x<(menu->box.x + menu->box.w)) && (y > menu->box.y ) && (y < (menu->box.y + menu->box.h)))){
-                std::cout<<"MEN\n";
+                std::cout<<"MENU\n";
                 return MAINMENU;
             }
     }
@@ -94,7 +94,6 @@ int EndScreen::EventHandler(){
             m_text.pop_back();
         }
         else if(ev.type==SDL_TEXTINPUT){
-            std::cout <<"TEXT INPUT DETECTED"<<std::endl;
             m_text+=ev.text.text;
             std::cout<<m_text<<std::endl;
         }
@@ -116,7 +115,6 @@ void EndScreen::render(){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,bg, NULL,NULL);
     c = m_text.c_str();
-    //  /   std::cout <<m_text<<std::endl;
     TTF_SizeText(font,c,&w,&h);
     temp = {textbox->box.x,textbox->box.y,w,h};
     tb =Texture::LoadTextBox(c,ren); // loading the texture for the updated text.

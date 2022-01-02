@@ -69,7 +69,6 @@ int MainMenu::EventHandler(){
     int x,y,d=MAINMENU;
     Uint32 buttons;
     buttons=SDL_GetMouseState(&x, &y);
-//    std::cout<<x<<" "<<y<<std::endl;
     switch (ev.type) {
         case SDL_QUIT:
             closed = true;
