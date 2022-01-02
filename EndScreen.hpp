@@ -17,7 +17,6 @@ public:
     ~EndScreen();
     SDL_Event ev;
     SDL_Rect temp;
-    int hover = 1;
     std::string m_text;
 private:
     Button* menu;

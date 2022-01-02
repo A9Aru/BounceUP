@@ -41,13 +41,13 @@ void EndScreen::init()
             }
             else
             {
-                font = TTF_OpenFont("ComicSans.ttf",16);
+                font = TTF_OpenFont("ComicSans.ttf",36);
                 c = m_text.c_str();
                 TTF_SizeText(font,c,&w,&h);  // returns the size of drec
-                menu=new Button(285,505,155,105);
-                restart=new Button(445,505,385,105);
-                exitwin=new Button(835,505,135,105);
-                textbox = new Button(474,720,100,100); // Should set the width and height of the UI Textbox.
+                menu=new Button(288,565,155,100);
+                restart=new Button(447,565,385,100);
+                exitwin=new Button(835,565,155,100);
+                textbox = new Button(288,430,704,85); // Should set the width and height of the UI Textbox.
                 temp = {474,720,w,h}; // drec
                 bg =Texture::LoadTexture("images/gameover.png", ren);
                 tb =Texture::LoadTextBox(c,ren);
@@ -69,7 +69,6 @@ int EndScreen::EventHandler(){
     Uint32 buttons;
     const Uint8 *keystate = SDL_GetKeyboardState(NULL);
     buttons=SDL_GetMouseState(&x, &y);
- //   std::cout<<x<<" X "<<y<<"Y\n";
     switch (ev.type) {
         case SDL_QUIT:
             closed=true;
@@ -87,25 +86,25 @@ int EndScreen::EventHandler(){
                 std::cout<<"MEN\n";
                 return MAINMENU;
             }
-            else if(((x > textbox->box.x) && (x<(textbox->box.x + textbox->box.w)) && (y > textbox->box.y ) && (y < (textbox->box.y + textbox->box.h)))){
-
-            }
-        case SDL_TEXTINPUT:
-        std::cout <<"TEXT INPUT DETECTED"<<std::endl;
-            if(keystate[SDL_SCANCODE_BACKSPACE] && m_text.size() > 0 && hover) m_text.pop_back();
-            else if(keystate[SDL_SCANCODE_KP_ENTER] ||  keystate[SDL_SCANCODE_RETURN]) // for the enter part
-            {
-
-                return MAINMENU;
-            }
-            else{
-             //   std::cout <<m_text<<std::endl;
-                // adding the text to the string.
-                m_text += ev.text.text;
-
-            }
-
+    }
+    
+    if(((x > textbox->box.x) && (x<(textbox->box.x + textbox->box.w)) && (y > textbox->box.y ) && (y < (textbox->box.y + textbox->box.h)))){
+        if(keystate[SDL_SCANCODE_BACKSPACE] && m_text.size() > 0){
+            m_text.pop_back();
         }
+        else if(ev.type==SDL_TEXTINPUT){
+            std::cout <<"TEXT INPUT DETECTED"<<std::endl;
+            m_text+=ev.text.text;
+            std::cout<<m_text<<std::endl;
+        }
+        else if(keystate[SDL_SCANCODE_KP_ENTER] ||  keystate[SDL_SCANCODE_RETURN]) // for the enter part
+        {
+            return MAINMENU;
+        }
+        return GAMEOVER;
+    }
+    std::cout.flush();
+    
     if(closed) {
         return EXIT;
     }
@@ -115,9 +114,9 @@ void EndScreen::render(){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,bg, NULL,NULL);
     c = m_text.c_str();
-//  /   std::cout <<m_text<<std::endl;
+    //  /   std::cout <<m_text<<std::endl;
     TTF_SizeText(font,c,&w,&h);
-    temp = {474,720,w,h};
+    temp = {textbox->box.x,textbox->box.y,w,h};
     tb =Texture::LoadTextBox(c,ren); // loading the texture for the updated text.
     SDL_RenderCopy(ren,tb,NULL,&temp); // rendering the name.(m_text)
     SDL_RenderPresent(ren);

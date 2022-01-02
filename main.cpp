@@ -62,8 +62,17 @@ int main()
             if(run==GAMEOVER){
                 ends->init();
                 ends->render();
+                Uint32 FB; //framebegin
+                int FT; //frametime
+                int fd=1000/20;
                 while (run==GAMEOVER) {
+                    FB=SDL_GetTicks();
                     run=ends->EventHandler();
+                    ends->render();
+                    FT=SDL_GetTicks()-FB;
+                    if(FD>FT){
+                        SDL_Delay(fd-FT);
+                    }
                 }
                 
                 ends->clean();

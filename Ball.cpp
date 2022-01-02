@@ -1,6 +1,6 @@
-#include<SDL.h>
+#include<SDL2/SDL.h>
 #include<iostream>
-#include<SDL_image.h>
+#include<SDL2/SDL_image.h>
 #include "Ball.hpp"
 #include "Rock.hpp"
 #include "Texture.hpp"

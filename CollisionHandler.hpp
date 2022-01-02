@@ -3,7 +3,7 @@
 #define CollisionHandler_hpp
 #include "Map.hpp"
 #include<vector>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "Score.hpp"
 
 class CollisionHandler
