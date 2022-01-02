@@ -4,6 +4,9 @@
 #include <string>
 #include "Game.hpp"
 #include <bits/stdc++.h>
+
+int timervar = 0;
+Uint32 callback( Uint32 interval, void* param );
 typedef enum  {
     MAINMENU,
     PLAY,
@@ -25,6 +28,12 @@ const char * c;
 void EndScreen::init()
 {
     m_text = "";
+        //Initialize SDL
+    if (SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
+    {
+        printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+    }
+     SDL_TimerID timerID = SDL_AddTimer( 500, callback, NULL);
     if(SDL_Init(SDL_INIT_VIDEO)== 0){
         win = SDL_CreateWindow("Game Over", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W, H, 0);
         if (win == nullptr)
@@ -48,7 +57,7 @@ void EndScreen::init()
                 menu=new Button(288,565,155,100);
                 restart=new Button(447,565,385,100);
                 exitwin=new Button(835,565,155,100);
-                textbox = new Button(288,430,704,85); // Should set the width and height of the UI Textbox.
+                textbox = new Button(288,440,704,85); // Should set the width and height of the UI Textbox.
                 temp = {474,720,w,h}; // drec
                 bg =Texture::LoadTexture("images/gameover.png", ren);
                 tb =Texture::LoadTextBox(c,ren);
@@ -114,14 +123,24 @@ int EndScreen::EventHandler(){
 void EndScreen::render(){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,bg, NULL,NULL);
+    if(timervar == 0){
     m_text += "_";
+    c = m_text.c_str();
+    //  / std::cout <<m_text<<std::endl;
+    TTF_SizeText(font,c,&w,&h);
+    temp = {textbox->box.x,textbox->box.y,w,h};
+    tb =Texture::LoadTextBox(c,ren); // loading the texture for the updated text.
+    SDL_RenderCopy(ren,tb,NULL,&temp); // rendering the name.(m_text)
+    SDL_RenderPresent(ren);
+    m_text.pop_back();  }
+    else {
     c = m_text.c_str();
     TTF_SizeText(font,c,&w,&h);
     temp = {textbox->box.x,textbox->box.y,w,h};
     tb =Texture::LoadTextBox(c,ren); // loading the texture for the updated text.
     SDL_RenderCopy(ren,tb,NULL,&temp); // rendering the name.(m_text)
     SDL_RenderPresent(ren);
-    m_text.pop_back();
+    }
 }
 
 void EndScreen::clean(){
@@ -164,3 +183,10 @@ void EndScreen::update_leaderboard(std::string name){
     }
 }
 
+Uint32 callback( Uint32 interval, void* param ){
+    if(timervar == 0) timervar = 1;
+    else timervar = 0;
+    return interval;
+}
+
+      
