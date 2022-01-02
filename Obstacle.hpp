@@ -12,6 +12,6 @@ public:
     Obstacle(const char* file, int x, int y);
     void Updatepos(int i);
     void Render();
-    void Update();
+    void Update(bool l, bool r);
 };
 #endif

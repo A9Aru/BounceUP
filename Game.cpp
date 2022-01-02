@@ -70,7 +70,7 @@ void Game::init(const char* title) {
                 closed = false;
             }
         }
-        b = new Ball("images/1.png", 160, 80, 60);
+        b = new Ball("images/1.png", 160, 80, 80);
         s = new Score("8bitOperatorPlus8-Regular.ttf");
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
@@ -97,28 +97,28 @@ int Game::update() {
         return GAMEOVER;
     }
     b->Update();
-    handle->checkWallLeftCollision(b->getdrec());
-    handle->checkWallRightCollision(b->getdrec());
+    bool l = handle->checkWallLeftCollision(b->getdrec());
+    bool r = handle->checkWallRightCollision(b->getdrec());
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         int left = 0, right = 0;
         m->rocks = m->level_rocks[i];
         //            cout << "Rendering rock in level" << endl;
-        m->rocks->Update();
+        m->rocks->Update(l,r);
     }
 
     for (int i = 0; i < m->level_obstacles.size(); i++)
     {
         m->obstacles = m->level_obstacles[i];
         //            cout << "Rendering rock in level" << endl;
-        m->obstacles->Update();
+        m->obstacles->Update(l,r);
     }
 
     for (int i = 0; i < m->level_coins.size(); i++)
     {
         m->coins = m->level_coins[i];
         //        cout << "Rendering rock in level" << endl;
-        m->coins->Update();
+        m->coins->Update(l,r);
     }
     m->flag->Update();
     return PLAY;
