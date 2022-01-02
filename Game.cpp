@@ -27,7 +27,7 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Texture* main_menu = nullptr;
 Score* s;
 
-typedef enum  {
+typedef enum {
     MAINMENU,
     PLAY,
     EXIT,
@@ -71,7 +71,7 @@ void Game::init(const char* title) {
             }
         }
         b = new Ball("images/1.png", 160, 80, 60);
-        s = new Score();
+        s = new Score("8bitOperatorPlus8-Regular.ttf");
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
         m = new Map();
@@ -85,30 +85,23 @@ void Game::eventhandler() {
     switch (event.type) {
     case SDL_QUIT:
         closed = true;
-            break;
+        break;
     }
 }
 
 int Game::update() {
     //call this update for every switch case
     handle->checkMapCollision(b->getdrec(), s);
-    if (handle->checkFlag(b->getdrec())|| handle->checkObstacle(b->getdrec())){
+    if (handle->checkFlag(b->getdrec()) || handle->checkObstacle(b->getdrec())) {
         closed = true;
         return GAMEOVER;
     }
-    /*for (int i = 0; i < m->level_rocks.size(); i++)
-    {
-        m->rocks = m->level_rocks[i];
-        if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
-        {
-            if (handle->checkCircularCollision(b->getdrec(), m->rocks->getdrec()))
-                cout << "Wall collision" << endl;
-        }
-    }*/
     b->Update();
-
+    handle->checkWallLeftCollision(b->getdrec());
+    handle->checkWallRightCollision(b->getdrec());
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
+        int left = 0, right = 0;
         m->rocks = m->level_rocks[i];
         //            cout << "Rendering rock in level" << endl;
         m->rocks->Update();
@@ -149,8 +142,8 @@ void Game::clean() {
 bool Game::isClosed() {
     return closed;
 }
-void Game::SetClosed(bool set){
-    closed=set;
+void Game::SetClosed(bool set) {
+    closed = set;
 }
 /*void Game::endGame()
 {
