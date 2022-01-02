@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include "MainMenu.hpp"
 #include "EndScreen.hpp"
 using namespace std;
@@ -20,6 +21,14 @@ int main()
     Game *bounce=new Game();
     MainMenu* newmain=new MainMenu();
     EndScreen* ends=new EndScreen();
+    
+    SDL_Init(SDL_INIT_AUDIO);
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    Mix_Music *bgm = Mix_LoadMUS("sample.mp3");
+    Mix_PlayMusic(bgm, -1);
+    if(SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_TIMER)){
+        cerr<<SDL_GetError()<<endl;
+    }
     
     if(SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_TIMER)){
         cerr<<SDL_GetError()<<endl;
