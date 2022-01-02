@@ -38,7 +38,7 @@ int main()
     else{
         int run=MAINMENU ;
         while(run==MAINMENU || run==PLAY){
-            
+            int score=0;
             if(run==MAINMENU){
                 newmain->init();
                 newmain->render();
@@ -66,11 +66,13 @@ int main()
                         SDL_Delay(FD-FT);
                     }
                 }
+                score=bounce->get_score();
                 bounce->clean();
             }
 
             if(run==GAMEOVER){
                 ends->init();
+                ends->score=score;
                 ends->render();
                 int fd=1000/20;
                 while (run==GAMEOVER) {

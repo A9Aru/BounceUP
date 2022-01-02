@@ -16,13 +16,14 @@ public:
     void render();
     void clean();
     bool isClosed();
-    void update_leaderboard(std::string name,int score); // name ,score
+    void update_leaderboard(std::string name); // name ,score
     ~EndScreen();
     SDL_Event ev;
     SDL_Rect temp;
     std::string m_text;
-private:
+    int score;
     Button* menu;
+private:
     Button* restart;
     Button* exitwin;
     Button* textbox; // To store the coordinates of the textbox.

@@ -3,7 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include "Game.hpp"
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 typedef enum  {
     MAINMENU,
     PLAY,
@@ -100,7 +100,7 @@ int EndScreen::EventHandler(){
         }
         else if(keystate[SDL_SCANCODE_KP_ENTER] ||  keystate[SDL_SCANCODE_RETURN]) // for the enter part
         {
-            update_leaderboard(m_text,Game::get_score()); // name ,score
+            update_leaderboard(m_text); // name ,score
             return MAINMENU;
         }
         return GAMEOVER;
@@ -133,9 +133,13 @@ bool EndScreen::isClosed(){
     return closed;
 }
 
-void EndScreen::update_leaderboard(std::string name,int score){
+bool comparator(std::pair<int,std::string> p1,std::pair<int,std::string> p2){
+    return p2.first<p1.first;
+}
+
+void EndScreen::update_leaderboard(std::string name){
     std::vector<std::pair<int,std::string>> scoreboard;  // names and scores.
-    std::fstream file; 
+    std::fstream file;
     std::string word;
     int points;
     // Reading the text file
@@ -151,18 +155,13 @@ void EndScreen::update_leaderboard(std::string name,int score){
     temp.first = score;
     temp.second = name;
     scoreboard.push_back(temp);
-    std::sort(scoreboard.begin(),scoreboard.end());
+    std::sort(scoreboard.begin(),scoreboard.end(),comparator);
     file.close();
     // Empying the text file.
     std::ofstream ofs;
     ofs.open("leader_board.txt", std::ofstream::out | std::ofstream::trunc);
-    ofs.close();  // doing this to clear the text file.
-    
-    // writing the sorted leaderboard back to the text file.
-    file.open ("leader_board.txt");
-    for(int i =0;i<5;i++){
-        //CODE HERE
-        // Should write back the vector back to the text file.
+    for(std::pair<int,std::string> p: scoreboard){
+        ofs<<p.second<<" "<<p.first<<"\n";
     }
-
 }
+
