@@ -23,15 +23,39 @@ void CollisionHandler::checkMapCollision(SDL_Rect* a, Score* s)
             break;
         }
     }
+}
+bool CollisionHandler::checkWallRightCollision(SDL_Rect* a)
+{
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
         if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
         {
-            if (SDL_HasIntersection(a,m->rocks->getdrec()))
-                cout << "Wall collision" << endl;
+            if (SDL_HasIntersection(a, m->rocks->getdrec()))
+                if (a->x < m->rocks->getdrec()->x && (m->rocks->getdrec()->y <= a->y && m->rocks->getdrec()->y + 80 >= a->y))
+                {
+                    return false;
+                }
         }
     }
+    return true;
+}
+
+bool CollisionHandler::checkWallLeftCollision(SDL_Rect* a)
+{
+    for (int i = 0; i < m->level_rocks.size(); i++)
+    {
+        m->rocks = m->level_rocks[i];
+        if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
+        {
+            if (SDL_HasIntersection(a, m->rocks->getdrec()))
+                if (a->x > m->rocks->getdrec()->x && (m->rocks->getdrec()->y <= a->y && m->rocks->getdrec()->y + 80 >= a->y))
+                {
+                    return false;
+                }
+        }
+    }
+    return true;
 }
 
 

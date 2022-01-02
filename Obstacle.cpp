@@ -17,15 +17,15 @@ void Obstacle::Render() {
     SDL_RenderCopy(Game::renderer, Object::text, NULL, &(Object::drec));
 }
 
-void Obstacle::Update() {
+void Obstacle::Update(bool l, bool r) {
     const Uint8* currkey = SDL_GetKeyboardState(NULL);
     // When D is Pressed
-    if (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT]) {
+    if (r == true && (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT])) {
         cout << "D is pressed\n";
         this->Updatepos(-5);
     }
     //              When A is pressed i.e LEFT arrow
-    else if (currkey[SDL_SCANCODE_A] || currkey[SDL_SCANCODE_LEFT]) {
+    else if (l == true && (currkey[SDL_SCANCODE_A] || currkey[SDL_SCANCODE_LEFT])) {
         cout << "A is pressed\n";
         this->Updatepos(5);
     }

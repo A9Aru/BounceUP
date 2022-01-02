@@ -107,7 +107,8 @@ int EndScreen::EventHandler(){
 
         }
     if(closed) {
-        return EXIT;}
+        return EXIT;
+    }
     return GAMEOVER;
 }
 void EndScreen::render(){

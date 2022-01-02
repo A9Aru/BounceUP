@@ -18,16 +18,10 @@ Map* m;
 SDL_Event Game::event;
 CollisionHandler* handle;
 SDL_Renderer* Game::renderer = nullptr;
-// game state is the screen we are in.
-// 0 is main menu.
-// 1 is leaderboard.
-// 2 is running gameplay.
-// Buttons in the main menu.
-//int Game::game_state = 0;
 SDL_Texture* main_menu = nullptr;
 Score* s;
-
-typedef enum  {
+bool ex=false;
+typedef enum {
     MAINMENU,
     PLAY,
     EXIT,
@@ -70,7 +64,7 @@ void Game::init(const char* title) {
                 closed = false;
             }
         }
-        b = new Ball("images/1.png", 160, 80, 60);
+        b = new Ball("images/1.png", 160, 80, 80);
         s = new Score();
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
@@ -85,49 +79,43 @@ void Game::eventhandler() {
     switch (event.type) {
     case SDL_QUIT:
         closed = true;
-            break;
+            ex=true;
+        break;
     }
 }
 
 int Game::update() {
     //call this update for every switch case
     handle->checkMapCollision(b->getdrec(), s);
-    if (handle->checkFlag(b->getdrec())|| handle->checkObstacle(b->getdrec())){
+    if (handle->checkFlag(b->getdrec()) || handle->checkObstacle(b->getdrec())) {
         closed = true;
         return GAMEOVER;
     }
-    /*for (int i = 0; i < m->level_rocks.size(); i++)
-    {
-        m->rocks = m->level_rocks[i];
-        if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
-        {
-            if (handle->checkCircularCollision(b->getdrec(), m->rocks->getdrec()))
-                cout << "Wall collision" << endl;
-        }
-    }*/
     b->Update();
-
+    bool l = handle->checkWallLeftCollision(b->getdrec());
+    bool r = handle->checkWallRightCollision(b->getdrec());
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
         //            cout << "Rendering rock in level" << endl;
-        m->rocks->Update();
+        m->rocks->Update(l,r);
     }
 
     for (int i = 0; i < m->level_obstacles.size(); i++)
     {
         m->obstacles = m->level_obstacles[i];
         //            cout << "Rendering rock in level" << endl;
-        m->obstacles->Update();
+        m->obstacles->Update(l,r);
     }
 
     for (int i = 0; i < m->level_coins.size(); i++)
     {
         m->coins = m->level_coins[i];
         //        cout << "Rendering rock in level" << endl;
-        m->coins->Update();
+        m->coins->Update(l,r);
     }
     m->flag->Update();
+    if(closed==true && ex==true) return EXIT;
     return PLAY;
 }
 
@@ -149,11 +137,6 @@ void Game::clean() {
 bool Game::isClosed() {
     return closed;
 }
-void Game::SetClosed(bool set){
-    closed=set;
+void Game::SetClosed(bool set) {
+    closed = set;
 }
-/*void Game::endGame()
-{
-    if(b->getdrec()->x && b->getdrec()->y)
-
-}*/

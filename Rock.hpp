@@ -3,12 +3,13 @@
 #include "Object.hpp"
 using namespace std;
 
-class Rock: public Object
+class Rock : public Object
 {
 public:
-    Rock(const char* file,int x,int y);
+    Rock(const char* file, int x, int y);
     void Updatepos(int i);
     void Render();
-    void Update();
+    void Update(bool left, bool right);
 };
+
 #endif
