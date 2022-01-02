@@ -69,7 +69,7 @@ int MainMenu::EventHandler(){
     int x,y,d=MAINMENU;
     Uint32 buttons;
     buttons=SDL_GetMouseState(&x, &y);
-    std::cout<<x<<" "<<y<<std::endl;
+//    std::cout<<x<<" "<<y<<std::endl;
     switch (ev.type) {
         case SDL_QUIT:
             closed = true;
@@ -118,18 +118,25 @@ void MainMenu::render(){
 
 
 void MainMenu::print_leaderboard(){
-    vector<pair<Texture*,Texture*>> lines; // pairs of score and names.
-    // SDL_Rect locations[10] ={{488,223,220,26},{884,225,130,26},{},{},{},{},{},{},{},{}};
+    int x1 = 877;
+    int xo = 484; 
+     SDL_Rect locations[10] ={
+     {xo,223,220,26},{x1,225,130,26},
+     {xo,305,220,26},{x1,308,130,26},
+     {xo,394,220,26},{x1,390,130,26},
+     {xo,475,220,26},{x1,476,130,26},
+     {xo,552,220,26},{x1,557,130,26}};
     // Testing for onnly one location now.
-    SDL_Rect locations[2] ={{488,223,220,26},{884,225,130,26}};
+   // SDL_Rect locations[2] ={{488,223,220,26},{884,225,130,26}};
     SDL_Texture *temp;
     fstream file;
     string word;
     const char * c;
     file.open ("leader_board.txt");
-    for(int i=0;i<2;i++){
+    for(int i=0;i<10;i++){
         file >> word;
         c = word.c_str();
+        cout << word << endl;
         temp =Texture::LoadTextBox(c,ren); // Loading Name
         SDL_RenderCopy(ren,temp,NULL,&locations[i]);  // rendering the name texture.
     }

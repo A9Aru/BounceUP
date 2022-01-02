@@ -1,8 +1,8 @@
-p1 6000
-p2 5000
-p3 4000
-p4 3000
-p5 2000
+Arhant 6000
+Chintann 5000
+Dhanvi 4000 
+Shreeya 3000
+Tejas 2000
 
 
 

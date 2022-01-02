@@ -12,7 +12,7 @@ SDL_Texture* Texture::LoadTexture(const char* filename, SDL_Renderer* ren){
 } 
 
 SDL_Texture *Texture ::LoadTextBox(const char* string, SDL_Renderer* ren){
-    TTF_Font* ourFont = TTF_OpenFont("8bitOperatorPlus8-Regular.ttf",32);
+    TTF_Font* ourFont = TTF_OpenFont("ComicSans.ttf",16);
     SDL_Surface* surface_New_game = TTF_RenderText_Solid(ourFont,string,{255,255,255});
     SDL_Texture* texture_New_game = SDL_CreateTextureFromSurface(ren,surface_New_game);
     return texture_New_game;
