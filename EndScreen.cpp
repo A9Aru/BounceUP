@@ -114,12 +114,14 @@ int EndScreen::EventHandler(){
 void EndScreen::render(){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,bg, NULL,NULL);
+    m_text += "_";
     c = m_text.c_str();
     TTF_SizeText(font,c,&w,&h);
     temp = {textbox->box.x,textbox->box.y,w,h};
     tb =Texture::LoadTextBox(c,ren); // loading the texture for the updated text.
     SDL_RenderCopy(ren,tb,NULL,&temp); // rendering the name.(m_text)
     SDL_RenderPresent(ren);
+    m_text.pop_back();
 }
 
 void EndScreen::clean(){
@@ -143,8 +145,7 @@ void EndScreen::update_leaderboard(std::string name){
     // Reading the text file
     file.open ("leader_board.txt");
     std::pair<int,std::string> temp;
-    for(int i =0;i<5;i++){
-        file>> word;
+    while(file>>word){
         temp.second = word;
         file>>points;
         temp.first = points;
