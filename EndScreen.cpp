@@ -2,7 +2,8 @@
 #include "Texture.hpp"
 #include <SDL2/SDL_ttf.h>
 #include <string>
-
+#include "Game.hpp"
+#include<bits/stdc++.h>
 typedef enum  {
     MAINMENU,
     PLAY,
@@ -99,6 +100,7 @@ int EndScreen::EventHandler(){
         }
         else if(keystate[SDL_SCANCODE_KP_ENTER] ||  keystate[SDL_SCANCODE_RETURN]) // for the enter part
         {
+            update_leaderboard(m_text,Game::get_score()); // name ,score
             return MAINMENU;
         }
         return GAMEOVER;
@@ -129,4 +131,38 @@ void EndScreen::clean(){
 }
 bool EndScreen::isClosed(){
     return closed;
+}
+
+void EndScreen::update_leaderboard(std::string name,int score){
+    std::vector<std::pair<int,std::string>> scoreboard;  // names and scores.
+    std::fstream file; 
+    std::string word;
+    int points;
+    // Reading the text file
+    file.open ("leader_board.txt");
+    std::pair<int,std::string> temp;
+    for(int i =0;i<5;i++){
+        file>> word;
+        temp.second = word;
+        file>>points;
+        temp.first = points;
+        scoreboard.push_back(temp);
+    }
+    temp.first = score;
+    temp.second = name;
+    scoreboard.push_back(temp);
+    std::sort(scoreboard.begin(),scoreboard.end());
+    file.close();
+    // Empying the text file.
+    std::ofstream ofs;
+    ofs.open("leader_board.txt", std::ofstream::out | std::ofstream::trunc);
+    ofs.close();  // doing this to clear the text file.
+    
+    // writing the sorted leaderboard back to the text file.
+    file.open ("leader_board.txt");
+    for(int i =0;i<5;i++){
+        //CODE HERE
+        // Should write back the vector back to the text file.
+    }
+
 }

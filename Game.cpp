@@ -149,3 +149,7 @@ bool Game::isClosed() {
 void Game::SetClosed(bool set) {
     closed = set;
 }
+
+int Game::get_score() {
+    return s->score;
+}

@@ -5,6 +5,8 @@
 #include "Window.hpp"
 #include "Button.hpp"
 #include <string>
+#include "Game.hpp"
+
 
 
 class EndScreen: public Window{
@@ -14,6 +16,7 @@ public:
     void render();
     void clean();
     bool isClosed();
+    void update_leaderboard(std::string name,int score); // name ,score
     ~EndScreen();
     SDL_Event ev;
     SDL_Rect temp;

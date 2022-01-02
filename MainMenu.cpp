@@ -140,6 +140,7 @@ void MainMenu::print_leaderboard(){
         temp =Texture::LoadTextBox(c,ren); // Loading Name
         SDL_RenderCopy(ren,temp,NULL,&locations[i]);  // rendering the name texture.
     }
+    file.close();
     
 }
 void MainMenu::clean(){
