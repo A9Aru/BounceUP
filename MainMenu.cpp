@@ -24,47 +24,44 @@ MainMenu::~MainMenu(){
 SDL_Texture *lb;
 void MainMenu::init()
 {
-    
     if(SDL_Init(SDL_INIT_VIDEO)== 0){
         win = SDL_CreateWindow("Main Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W, H, 0);
         SDL_Surface *icon=IMG_Load("images/icon.png");
         SDL_SetWindowIcon(win,icon);
         SDL_FreeSurface(icon);
-        if(TTF_Init() == -1){
-           std::cout << "Could not initailize SDL2_ttf, error: " << TTF_GetError() << std::endl;
-        if (win == nullptr)
-        {
-            std::cerr << SDL_GetError() << std::endl;
-       
+        if(TTF_Init() !=0){
+            std::cout << "Could not initailize SDL2_ttf, error: " << TTF_GetError() << std::endl;
         }
         else
         {
-            ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-            if (ren == nullptr)
+            if (win == nullptr)
             {
                 std::cerr << SDL_GetError() << std::endl;
-
+                
             }
             else
             {
-                // Rendering the screen and setting the state back to menu if the back button is triggered.
-                bg=Texture::LoadTexture("images/Menu.JPEG",ren);
-                lb=Texture::LoadTexture("images/leader_board.jpg",ren);
-                play=new Button(855,190,345,165);
-                leaderboard=new Button(80,650,50,50);
-                exitwin=new Button(855,392,345,165);
-                 back = new Button(1101,575,141,100);
-                closed=false;
-                std:: cout << "Window Created\n";
+                ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+                if (ren == nullptr)
+                {
+                    std::cerr << SDL_GetError() << std::endl;
+                    
+                }
+                else
+                {
+                    // Rendering the screen and setting the state back to menu if the back button is triggered.
+                    bg=Texture::LoadTexture("images/Menu.JPEG",ren);
+                    lb=Texture::LoadTexture("images/leader_board.jpg",ren);
+                    play=new Button(855,190,345,165);
+                    leaderboard=new Button(80,650,50,50);
+                    exitwin=new Button(855,392,345,165);
+                    back = new Button(1101,575,141,100);
+                    closed=false;
+                    std:: cout << "Window Created\n";
+                }
             }
         }
     }
-    else
-    {
-        std::cerr << SDL_GetError() << std::endl;
-    }
-
-}
 }
 int MainMenu::EventHandler(){
     SDL_PollEvent(&ev);
@@ -91,10 +88,10 @@ int MainMenu::EventHandler(){
                 std::cout<<"LEADERBOARD\n";
             }
             else if((x > back->box.x-back->box.w) && (x<(back->box.x + back->box.w)) && (y > back->box.y - back->box.h) && (y < (back->box.y + back->box.h))){
-                    SDL_RenderClear(ren);
-                    SDL_RenderCopy(ren,bg, NULL,NULL);
-                    SDL_RenderPresent(ren);
-                    d=MAINMENU;
+                SDL_RenderClear(ren);
+                SDL_RenderCopy(ren,bg, NULL,NULL);
+                SDL_RenderPresent(ren);
+                d=MAINMENU;
                 std::cout<<"LEADERBOARD\n";
             }
             break;
@@ -108,21 +105,21 @@ int MainMenu::EventHandler(){
 void MainMenu::render(){
     int state = EventHandler();
     if(state == MAINMENU){
-    SDL_RenderClear(ren);
-    SDL_RenderCopy(ren,bg, NULL,NULL);
-    SDL_RenderPresent(ren);  }
+        SDL_RenderClear(ren);
+        SDL_RenderCopy(ren,bg, NULL,NULL);
+        SDL_RenderPresent(ren);  }
     if(state == LEADERBOARD){
-    SDL_RenderClear(ren);
-    SDL_RenderCopy(ren,lb, NULL,NULL);
-    print_leaderboard();
-    SDL_RenderPresent(ren);   }
-
+        SDL_RenderClear(ren);
+        SDL_RenderCopy(ren,lb, NULL,NULL);
+        print_leaderboard();
+        SDL_RenderPresent(ren);   }
+    
 }
 
 
 void MainMenu::print_leaderboard(){
     vector<pair<Texture*,Texture*>> lines; // pairs of score and names.
-   // SDL_Rect locations[10] ={{488,223,220,26},{884,225,130,26},{},{},{},{},{},{},{},{}};
+    // SDL_Rect locations[10] ={{488,223,220,26},{884,225,130,26},{},{},{},{},{},{},{},{}};
     // Testing for onnly one location now.
     SDL_Rect locations[2] ={{488,223,220,26},{884,225,130,26}};
     SDL_Texture *temp;
@@ -136,7 +133,7 @@ void MainMenu::print_leaderboard(){
         temp =Texture::LoadTextBox(c,ren); // Loading Name
         SDL_RenderCopy(ren,temp,NULL,&locations[i]);  // rendering the name texture.
     }
-
+    
 }
 void MainMenu::clean(){
     SDL_DestroyWindow(win);
