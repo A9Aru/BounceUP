@@ -18,9 +18,9 @@ private:
 public:
     Ball(const char* file,int x,int y, int r);
     
-    void Update();
+    void Update(bool d, bool u);
     void Render();
-    void keyboardinput();
+    void keyboardinput(bool d, bool u);
 //    void keyboardinput(Coin* c);
     void setdeg(double deg);
     SDL_Rect* getdrec();
