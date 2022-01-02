@@ -19,7 +19,7 @@ public:
     int update();
     void render();
     void clean();
- 
+    int get_score();
     bool isClosed();
     void SetClosed(bool set);
     //void endGame();
