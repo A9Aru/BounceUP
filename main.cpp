@@ -13,7 +13,7 @@ typedef enum  {
     EXIT,
     LEADERBOARD,
     GAMEOVER,
-} ButtonPressed;
+} GAMESTATE;
 
 
 int main()

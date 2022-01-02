@@ -9,7 +9,7 @@ typedef enum  {
     EXIT,
     LEADERBOARD,
     GAMEOVER
-} ButtonPressed;
+} GAMESTATE;
 
 EndScreen::~EndScreen(){
     menu=NULL;
