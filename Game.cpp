@@ -71,7 +71,7 @@ void Game::init(const char* title) {
             }
         }
         b = new Ball("images/1.png", 160, 80, 80);
-        s = new Score("8bitOperatorPlus8-Regular.ttf");
+        s = new Score();
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
         m = new Map();
@@ -101,7 +101,6 @@ int Game::update() {
     bool r = handle->checkWallRightCollision(b->getdrec());
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
-        int left = 0, right = 0;
         m->rocks = m->level_rocks[i];
         //            cout << "Rendering rock in level" << endl;
         m->rocks->Update(l,r);
