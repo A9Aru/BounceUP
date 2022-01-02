@@ -1,6 +1,6 @@
-#include<SDL2/SDL.h>
+#include<SDL.h>
 #include<iostream>
-#include<SDL2/SDL_image.h>
+#include<SDL_image.h>
 #include "Ball.hpp"
 #include "Rock.hpp"
 #include "Texture.hpp"
@@ -22,8 +22,8 @@ Ball::Ball(const char* file, int x, int y, int r)
     rotate = false;
 }
 
-void Ball::Update() {
-    keyboardinput();
+void Ball::Update(bool d, bool u) {
+    keyboardinput(d, u);
     drec.x = x_pos;
     drec.y = y_pos;
     drec.h = radius;
@@ -41,58 +41,66 @@ void Ball::setdeg(double deg) {
     else if (*degrees <= -360) *degrees += 360;
 }
 
-void Ball::keyboardinput() {
+void Ball::keyboardinput(bool d, bool u) {
     const Uint8* currkey = SDL_GetKeyboardState(NULL);
 
     if ((currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) && (currkey[SDL_SCANCODE_A] || currkey[SDL_SCANCODE_LEFT])) {
         cout << "W and A is pressed" << endl;
         this->setdeg(-5);
         rotate = true;
-        if (y_velocity > -25)
-            y_velocity -= 5;
-        y_pos = y_pos + (y_velocity) / 10;     
+        if (u == true)
+        {
+            y_pos = y_pos - 5;
+        }
         cout << "Rotate Left by" << *degrees << "\n";
     }
     else if ((currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) && (currkey[SDL_SCANCODE_LEFT] || currkey[SDL_SCANCODE_A])) {
         cout << "S and A is pressed" << endl;
         this->setdeg(-5);
         rotate = true;
-        if (y_velocity < 25)
-            y_velocity += 5;
-        y_pos = y_pos + (y_velocity) / 10;
+        if (d == true)
+        {
+      
+            y_pos = y_pos + 5;
+        }
         cout << "Rotate Left by" << *degrees << "\n";
     }
     else if ((currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) && (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT])) {
         cout << "W and D is pressed" << endl;
         this->setdeg(5);
         rotate = true;
-        if (y_velocity > -25)
-            y_velocity -= 5;
-        y_pos = y_pos + (y_velocity) / 10;
+        if (u == true)
+        {
+
+            y_pos = y_pos - 5;
+        }
         cout << "Rotate Right by" << *degrees << "\n";
     }
     else if ((currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) && (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT])) {
         cout << "S and D is pressed" << endl;
         this->setdeg(5);
         rotate = true;
-        if (y_velocity < 25)
-            y_velocity += 5;
-        y_pos = y_pos + (y_velocity) / 10;
+        if (d == true)
+        {
+            y_pos = y_pos + 5;
+        }
         cout << "Rotate Right by" << *degrees << "\n";
     }
     //  When W is pressed i.e UP arrow
     else if (currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) {
         cout << "W is pressed" << endl;
-        if (y_velocity > -25)
-            y_velocity -= 5;
-        y_pos = y_pos + (y_velocity) / 10;
+        if (u == true)
+        {
+            y_pos = y_pos - 5;
+        }
     }
     //          When S is pressed i.e DOWN arrow
     else if (currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) {
         cout << "S is pressed" << endl;
-        if (y_velocity < 25)
-            y_velocity += 5;
-        y_pos = y_pos + (y_velocity) / 10;
+        if (d == true)
+        {
+            y_pos = y_pos + 5;
+        }
     }
     //          When D is pressed i.e RIGHT arrow
     else if (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT]) {

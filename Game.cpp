@@ -87,11 +87,13 @@ void Game::eventhandler() {
 int Game::update() {
     //call this update for every switch case
     handle->checkMapCollision(b->getdrec(), s);
-    if (handle->checkFlag(b->getdrec()) || handle->checkObstacle(b->getdrec())) {
+    if (handle->checkFlag(b->getdrec()) || handle->checkObstacle(b->getdrec()) || handle->checkObstacle1(b->getdrec())) {
         closed = true;
         return GAMEOVER;
     }
-    b->Update();
+    bool d = handle->checkWallDownCollision(b->getdrec());
+    bool u = handle->checkWallUpCollision(b->getdrec());
+    b->Update(d,u);
     bool l = handle->checkWallLeftCollision(b->getdrec());
     bool r = handle->checkWallRightCollision(b->getdrec());
     for (int i = 0; i < m->level_rocks.size(); i++)
@@ -106,6 +108,13 @@ int Game::update() {
         m->obstacles = m->level_obstacles[i];
         //            cout << "Rendering rock in level" << endl;
         m->obstacles->Update(l,r);
+    }
+
+    for (int i = 0; i < m->level_obstacles1.size(); i++)
+    {
+        m->obstacles1 = m->level_obstacles1[i];
+        //            cout << "Rendering rock in level" << endl;
+        m->obstacles1->Update(l, r);
     }
 
     for (int i = 0; i < m->level_coins.size(); i++)

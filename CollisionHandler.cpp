@@ -58,6 +58,40 @@ bool CollisionHandler::checkWallLeftCollision(SDL_Rect* a)
     return true;
 }
 
+bool CollisionHandler::checkWallDownCollision(SDL_Rect* a)
+{
+    for (int i = 0; i < m->level_rocks.size(); i++)
+    {
+        m->rocks = m->level_rocks[i];
+        if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
+        {
+            if (SDL_HasIntersection(a, m->rocks->getdrec()))
+                if (a->y < m->rocks->getdrec()->y && (m->rocks->getdrec()->x <= a->x && m->rocks->getdrec()->x + 80 >= a->x))
+                {
+                    return false;
+                }
+        }
+    }
+    return true;
+}
+
+bool CollisionHandler::checkWallUpCollision(SDL_Rect* a)
+{
+    for (int i = 0; i < m->level_rocks.size(); i++)
+    {
+        m->rocks = m->level_rocks[i];
+        if (m->rocks->getdrec()->x < 240 && m->rocks->getdrec()->x >= 80)
+        {
+            if (SDL_HasIntersection(a, m->rocks->getdrec()))
+                if (a->y > m->rocks->getdrec()->y && (m->rocks->getdrec()->x <= a->x && m->rocks->getdrec()->x + 80 >= a->x))
+                {
+                    return false;
+                }
+        }
+    }
+    return true;
+}
+
 
 bool CollisionHandler::checkFlag(SDL_Rect* a)
 {
@@ -69,6 +103,18 @@ bool CollisionHandler::checkObstacle(SDL_Rect* a)
     for (int i = 0; i < m->level_obstacles.size(); i++)
     {
         if (checkCircularCollision(a, m->level_obstacles[i]->getdrec()))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool CollisionHandler::checkObstacle1(SDL_Rect* a)
+{
+    for (int i = 0; i < m->level_obstacles1.size(); i++)
+    {
+        if (checkCircularCollision(a, m->level_obstacles1[i]->getdrec()))
         {
             return true;
         }
