@@ -17,6 +17,7 @@ public:
     bool isClosed();
     void render();
     void clean();
+    void print_leaderboard();
     SDL_Event ev;
 };
 #endif /* MainMenu_hpp */

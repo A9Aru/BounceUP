@@ -2,6 +2,10 @@
 #include "Texture.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <bits/stdc++.h>
+
+using namespace std;
 
 typedef enum  {
     MAINMENU,
@@ -26,6 +30,8 @@ void MainMenu::init()
         SDL_Surface *icon=IMG_Load("images/icon.png");
         SDL_SetWindowIcon(win,icon);
         SDL_FreeSurface(icon);
+        if(TTF_Init() == -1){
+           std::cout << "Could not initailize SDL2_ttf, error: " << TTF_GetError() << std::endl;
         if (win == nullptr)
         {
             std::cerr << SDL_GetError() << std::endl;
@@ -59,13 +65,14 @@ void MainMenu::init()
     }
 
 }
-
+}
 int MainMenu::EventHandler(){
     SDL_PollEvent(&ev);
     SDL_PumpEvents();
     int x,y,d=MAINMENU;
     Uint32 buttons;
     buttons=SDL_GetMouseState(&x, &y);
+    std::cout<<x<<" "<<y<<std::endl;
     switch (ev.type) {
         case SDL_QUIT:
             closed = true;
@@ -107,7 +114,27 @@ void MainMenu::render(){
     if(state == LEADERBOARD){
     SDL_RenderClear(ren);
     SDL_RenderCopy(ren,lb, NULL,NULL);
+    print_leaderboard();
     SDL_RenderPresent(ren);   }
+
+}
+
+
+void MainMenu::print_leaderboard(){
+    vector<pair<Texture*,Texture*>> lines; // pairs of score and names.
+   // SDL_Rect locations[10] ={{488,223,220,26},{884,225,130,26},{},{},{},{},{},{},{},{}};
+    SDL_Rect locations[2] ={{488,223,220,26},{884,225,130,26}};
+    SDL_Texture *temp;
+    fstream file;
+    string word;
+    const char * c;
+    file.open ("leader_board.txt");
+    for(int i=0;i<2;i++){
+        file >> word;
+        c = word.c_str();
+        temp =Texture::LoadTexture(c,ren); // Loading Name
+        SDL_RenderCopy(ren,temp,NULL,&locations[i]);  // rendering the name texture.
+    }
 
 }
 void MainMenu::clean(){
