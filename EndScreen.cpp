@@ -43,7 +43,7 @@ void EndScreen::init()
             {
                 font = TTF_OpenFont("ComicSans.ttf",16);
                 c = m_text.c_str();
-                TTF_SizeText(font,c,&w,&h);
+                TTF_SizeText(font,c,&w,&h);  // returns the size of drec
                 menu=new Button(285,505,155,105);
                 restart=new Button(445,505,385,105);
                 exitwin=new Button(835,505,135,105);
