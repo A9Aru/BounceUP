@@ -123,6 +123,7 @@ void MainMenu::render(){
 void MainMenu::print_leaderboard(){
     vector<pair<Texture*,Texture*>> lines; // pairs of score and names.
    // SDL_Rect locations[10] ={{488,223,220,26},{884,225,130,26},{},{},{},{},{},{},{},{}};
+    // Testing for onnly one location now.
     SDL_Rect locations[2] ={{488,223,220,26},{884,225,130,26}};
     SDL_Texture *temp;
     fstream file;
@@ -132,7 +133,7 @@ void MainMenu::print_leaderboard(){
     for(int i=0;i<2;i++){
         file >> word;
         c = word.c_str();
-        temp =Texture::LoadTexture(c,ren); // Loading Name
+        temp =Texture::LoadTextBox(c,ren); // Loading Name
         SDL_RenderCopy(ren,temp,NULL,&locations[i]);  // rendering the name texture.
     }
 
