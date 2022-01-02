@@ -6,7 +6,7 @@
 
 class Score{
 public:
-    Score(const char* t);
+    Score();
     int score;
     std::string dis;
     void updatescore(int s);

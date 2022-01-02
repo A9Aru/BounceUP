@@ -71,7 +71,7 @@ void Game::init(const char* title) {
             }
         }
         b = new Ball("images/1.png", 160, 80, 60);
-        s = new Score("8bitOperatorPlus8-Regular.ttf");
+        s = new Score();
         //r = new Rock("rock.png", 1100, 600);
         //r1 = new Rock("rock.png", 1000, 600);
         m = new Map();

@@ -1,11 +1,11 @@
 #include "Score.hpp"
 #include "Game.hpp"
-Score::Score(const char* t){
+Score::Score(){
     if(TTF_Init()!=0){
         std::cout<<SDL_GetError()<<std::endl;
     }
     else{
-        fon=TTF_OpenFont(t, 26);
+        fon=TTF_OpenFont("ComicSans.ttf", 26);
         score=0;
     }
 }
