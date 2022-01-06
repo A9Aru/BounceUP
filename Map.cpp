@@ -151,7 +151,7 @@ void Map::create_obstacle1(int x, int y)
 
 void Map::create_coin(int x, int y)
 {
-	coins = new Coin("images/Coin1.png", x, y);
+	coins = new Coin("images/coin1.png", x, y);
 	level_coins.push_back(coins);
 }
 
