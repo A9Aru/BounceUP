@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
+//Simple class to make a button image.
 class Button{
 public:
     SDL_Rect box;

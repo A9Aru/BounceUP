@@ -3,7 +3,7 @@
 #define Coin_hpp
 #include "Object.hpp"
 using namespace std;
-
+//Uses the parent object class to make a coin object for the game. Has functions to update position and render.
 class Coin : public Object
 {
 private:

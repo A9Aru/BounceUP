@@ -1,6 +1,6 @@
 #include "Map.hpp"
 #include "Texture.hpp"
-
+//Map 
 int lev1_map[64][9] = {
 	{1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,1},
@@ -79,7 +79,7 @@ Map::Map()
 	src.w = dest.w = 80;
 	dest.x = dest.y = 0;
 }
-
+//load map
 void Map::loadMap(int arr[64][9])
 {
 	for (int i = 0; i < 64; i++)
@@ -90,7 +90,7 @@ void Map::loadMap(int arr[64][9])
 		}
 	}
 }
-
+//draw map based on array
 void Map::drawMap()
 {
 	int type;
@@ -100,7 +100,7 @@ void Map::drawMap()
 		{
 			type = map[i][j];
 			dest.y = j * 80;
-            dest.x = i * 80;
+			dest.x = i * 80;
 			switch (type)
 			{
 			case 1:
@@ -130,7 +130,7 @@ void Map::drawMap()
 	}
 
 }
-
+//create objs
 void Map::create_rock(int x, int y)
 {
 	rocks = new Rock("images/brick.png", x, y);
@@ -151,10 +151,10 @@ void Map::create_obstacle1(int x, int y)
 
 void Map::create_coin(int x, int y)
 {
-	coins = new Coin("images/coin1.png", x, y);
+	coins = new Coin("images/Coin1.png", x, y);
 	level_coins.push_back(coins);
 }
-
+//render objects
 void Map::render_objects()
 {
 	for (int i = 0; i < level_rocks.size(); i++)

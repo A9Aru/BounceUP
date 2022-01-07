@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <SDL2/SDL_image.h>
 
+//Functions to load textures 
+
 class Texture{
 public:
     static SDL_Texture* LoadTexture(const char* filename, SDL_Renderer* ren);

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+//This the parent class for objects of the game. Each object has a source and destination rect and a texture to load the image.
+
 class Object
 {
 protected:

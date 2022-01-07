@@ -5,6 +5,9 @@
 #include "Coin.hpp"
 using namespace std;
 
+/*Class for ball. Uses x and y position and velocities. Has radius for size. Uses SDL_Texture and SDL_Rect to create ball image
+Has functions to update position based on keyboard input and render the object.*/
+
 class Ball
 {
 private:

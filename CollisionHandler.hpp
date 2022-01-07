@@ -6,6 +6,8 @@
 #include <SDL2/SDL.h>
 #include "Score.hpp"
 
+//Function to handle the collision of the ball with the different objects of the game.
+
 class CollisionHandler
 {
 public:

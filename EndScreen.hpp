@@ -7,9 +7,9 @@
 #include <string>
 #include "Game.hpp"
 
+//Derived class of window for final window display. Acts appropriately based on user input
 
-
-class EndScreen: public Window{
+class EndScreen : public Window {
 public:
     void init();
     int EventHandler();

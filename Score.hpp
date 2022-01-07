@@ -4,6 +4,8 @@
 #include <iostream>
 #include <SDL2/SDL_ttf.h>
 
+//Class to check the score of the user. Displays the score in the top right corner.
+
 class Score{
 public:
     Score();

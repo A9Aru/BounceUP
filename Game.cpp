@@ -12,6 +12,7 @@ using namespace std;
 static const int height = 720;
 static const int width = 1280;
 
+//create pointers
 Ball* b;
 //Rock* r, *r1;
 Map* m;
@@ -20,7 +21,7 @@ CollisionHandler* handle;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Texture* main_menu = nullptr;
 Score* s;
-bool ex=false;
+bool ex = false;
 typedef enum {
     MAINMENU,
     PLAY,
@@ -37,6 +38,7 @@ Game::~Game() {
 
 }
 
+//initialize window
 void Game::init(const char* title) {
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -64,6 +66,7 @@ void Game::init(const char* title) {
                 closed = false;
             }
         }
+        //create objs
         b = new Ball("images/1.png", 160, 80, 80);
         s = new Score();
         //r = new Rock("rock.png", 1100, 600);
@@ -74,18 +77,21 @@ void Game::init(const char* title) {
     }
 }
 
+//Quit game
 void Game::eventhandler() {
     SDL_PollEvent(&event);
     switch (event.type) {
     case SDL_QUIT:
         closed = true;
-            ex=true;
+        ex = true;
         break;
     }
 }
 
+//update game positions
 int Game::update() {
     //call this update for every switch case
+    //for end game
     handle->checkMapCollision(b->getdrec(), s);
     if (handle->checkFlag(b->getdrec()) || handle->checkObstacle(b->getdrec()) || handle->checkObstacle1(b->getdrec())) {
         closed = true;
@@ -95,18 +101,18 @@ int Game::update() {
     bool u = handle->checkWallUpCollision(b->getdrec());
     bool l = handle->checkWallLeftCollision(b->getdrec());
     bool r = handle->checkWallRightCollision(b->getdrec());
-    b->Update(d,u);
-    
+    b->Update(d, u);
+    //update rocks
     for (int i = 0; i < m->level_rocks.size(); i++)
     {
         m->rocks = m->level_rocks[i];
-        m->rocks->Update(l,r);
+        m->rocks->Update(l, r);
     }
-
+    //update obstacles
     for (int i = 0; i < m->level_obstacles.size(); i++)
     {
         m->obstacles = m->level_obstacles[i];
-        m->obstacles->Update(l,r);
+        m->obstacles->Update(l, r);
     }
 
     for (int i = 0; i < m->level_obstacles1.size(); i++)
@@ -114,25 +120,28 @@ int Game::update() {
         m->obstacles1 = m->level_obstacles1[i];
         m->obstacles1->Update(l, r);
     }
-
+    //update coins
     for (int i = 0; i < m->level_coins.size(); i++)
     {
         m->coins = m->level_coins[i];
-        m->coins->Update(l,r);
+        m->coins->Update(l, r);
     }
     m->flag->Update(l,r);
-    if(closed==true && ex==true) return EXIT;
+    if (closed == true && ex == true) return EXIT;
     return PLAY;
 }
 
+//render the objects
 void Game::render() {
     SDL_RenderClear(renderer);
     m->render_objects();
     b->Render();
     s->render();
+    cout << b->getdrec()->x << " " << b->getdrec()->y << endl;
     SDL_RenderPresent(renderer);
 }
 
+//destroy game
 void Game::clean() {
     SDL_DestroyWindow(win);
     SDL_DestroyRenderer(renderer);
@@ -144,7 +153,7 @@ bool Game::isClosed() {
 void Game::SetClosed(bool set) {
     closed = set;
 }
-
+//return score
 int Game::get_score() {
     return s->score;
 }

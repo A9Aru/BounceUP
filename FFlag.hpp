@@ -4,6 +4,9 @@
 #include "Object.hpp"
 using namespace std;
 
+//Uses the parent object class to make a flag object for the game. Has functions to update position and render.
+
+
 class FFlag : public Object
 {
 private:

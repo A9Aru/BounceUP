@@ -8,13 +8,14 @@
 #include <SDL2/SDL_image.h>
 #include "Texture.hpp"
 
+//To run the main game. Has functions to render the whole game and update the objects present in the game based on user input.
 
-class Game{
+class Game {
 public:
     Game();
     ~Game();
     void init(const char* title);
-    
+
     void eventhandler();
     int update();
     void render();
@@ -29,6 +30,6 @@ public:
 private:
     bool closed;
     SDL_Window* win = nullptr;
-    
+
 };
 #endif /* Game_hpp */

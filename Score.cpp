@@ -1,5 +1,6 @@
 #include "Score.hpp"
 #include "Game.hpp"
+//constructor
 Score::Score(){
     if(TTF_Init()!=0){
         std::cout<<SDL_GetError()<<std::endl;
@@ -9,7 +10,7 @@ Score::Score(){
         score=0;
     }
 }
-
+//function to update the score
 void Score::updatescore(int s){
     score+=s;
     dis=std::to_string(score);
@@ -17,7 +18,7 @@ void Score::updatescore(int s){
     const char* t=(char*) dis.c_str();
     sur2=TTF_RenderText_Solid(fon,t ,{255,255,255});
 }
-
+//function to render the score
 void Score::render(){
     text1=SDL_CreateTextureFromSurface(Game::renderer, sur1);
     SDL_RenderCopy(Game::renderer, text1, NULL, &a1);

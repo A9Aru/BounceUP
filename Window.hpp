@@ -2,8 +2,10 @@
 #define Window_hpp
 
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <SDL2/SDL_image.h>
+
+//Window where the game is displayed. 
 
 class Window{
 public:

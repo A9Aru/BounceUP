@@ -4,6 +4,8 @@
 #include "Object.hpp"
 using namespace std;
 
+//class of obstacles in the game. Has functions for update position and render functions
+
 class Obstacle: public Object
 {
 private:

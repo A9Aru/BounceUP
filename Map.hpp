@@ -9,6 +9,8 @@
 #include "FFlag.hpp"
 #include <vector>
 
+//The map of the game. Has the list of objects present in the game. Renders the map in every game loop.
+
 class Map
 {
 	SDL_Rect src, dest;
@@ -34,8 +36,7 @@ public:
 	FFlag* flag;
 	vector<Obstacle*> level_obstacles;
 	vector<Obstacle1*> level_obstacles1;
-	vector<Rock *> level_rocks;
+	vector<Rock*> level_rocks;
 	vector<Coin*> level_coins;
 	int map[64][9];
 };
-
