@@ -43,49 +43,7 @@ void Ball::setdeg(double deg) {
 
 void Ball::keyboardinput(bool d, bool u) {
     const Uint8* currkey = SDL_GetKeyboardState(NULL);
-
-//    if ((currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) && (currkey[SDL_SCANCODE_A] || currkey[SDL_SCANCODE_LEFT])) {
-//        cout << "W and A is pressed" << endl;
-//        this->setdeg(-5);
-//        rotate = true;
-//        if (u == true)
-//        {
-//            y_pos = y_pos - 5;
-//        }
-//        cout << "Rotate Left by" << *degrees << "\n";
-//    }
-//    else if ((currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) && (currkey[SDL_SCANCODE_LEFT] || currkey[SDL_SCANCODE_A])) {
-//        cout << "S and A is pressed" << endl;
-//        this->setdeg(-5);
-//        rotate = true;
-//        if (d == true)
-//        {
-//
-//            y_pos = y_pos + 5;
-//        }
-//        cout << "Rotate Left by" << *degrees << "\n";
-//    }
-//    else if ((currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) && (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT])) {
-//        cout << "W and D is pressed" << endl;
-//        this->setdeg(5);
-//        rotate = true;
-//        if (u == true)
-//        {
-//
-//            y_pos = y_pos - 5;
-//        }
-//        cout << "Rotate Right by" << *degrees << "\n";
-//    }
-//    else if ((currkey[SDL_SCANCODE_S] || currkey[SDL_SCANCODE_DOWN]) && (currkey[SDL_SCANCODE_D] || currkey[SDL_SCANCODE_RIGHT])) {
-//        cout << "S and D is pressed" << endl;
-//        this->setdeg(5);
-//        rotate = true;
-//        if (d == true)
-//        {
-//            y_pos = y_pos + 5;
-//        }
-//        cout << "Rotate Right by" << *degrees << "\n";
-//    }
+    
     //  When W is pressed i.e UP arrow
     if (currkey[SDL_SCANCODE_W] || currkey[SDL_SCANCODE_UP]) {
         cout << "W is pressed" << endl;

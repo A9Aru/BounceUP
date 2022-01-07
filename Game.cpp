@@ -130,7 +130,6 @@ void Game::render() {
     m->render_objects();
     b->Render();
     s->render();
-    cout << b->getdrec()->x << " " << b->getdrec()->y << endl;
     SDL_RenderPresent(renderer);
 }
 

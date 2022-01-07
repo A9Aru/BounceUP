@@ -57,7 +57,7 @@ void MainMenu::init()
                     exitwin=new Button(855,392,345,165);
                     back = new Button(1101,575,141,100);
                     closed=false;
-                    std:: cout << "Window Created\n";
+                    std:: cout << "Main Menu Created\n";
                 }
             }
         }
@@ -135,7 +135,6 @@ void MainMenu::print_leaderboard(){
     for(int i=0;i<10;i++){
         file >> word;
         c = word.c_str();
-        cout << word << endl;
         temp =Texture::LoadTextBox(c,ren); // Loading Name
         SDL_RenderCopy(ren,temp,NULL,&locations[i]);  // rendering the name texture.
     }
